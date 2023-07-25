@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Codificación de caracteres para el documento -->
+    <meta charset="utf-8">
+    <!-- Título del documento -->
+    <title>CoffeeShop - Tu tienda de café</title>
+    <!-- Optimización de la página web para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivo como icono -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Importación de archivos CSS -->
+    <link rel="stylesheet" href="../../resources/css/icons.css">
+    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
+    <link rel="stylesheet" href="../../resources/css/public.css">
+</head>
+
+<body>
+    <!-- Encabezado del documento -->
+    <header></header>
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Componente Slider con indicadores -->
+        <div class="slider" id="slider">
+            <ul class="slides">
+                <li>
+                    <img src="../../resources/img/slider/img01.jpg" alt="Primera foto">
+                    <div class="caption center-align">
+                        <h2>¿Sabías que...?</h2>
+                        <h4>El café reduce el riesgo de padecer Alzheimer.</h4>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../resources/img/slider/img02.jpg" alt="Segunda foto">
+                    <div class="caption left-align">
+                        <h2>¿Preocupado por tu peso?</h2>
+                        <h4>El café contribuye a reducir esos kilos de más.</h4>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../resources/img/slider/img03.jpg" alt="Tercera foto">
+                    <div class="caption right-align">
+                        <h2>¿Sabías que...?</h2>
+                        <h4>El café reduce el riesgo de cáncer.</h4>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../resources/img/slider/img04.jpg" alt="Cuarta foto">
+                    <div class="caption center-align">
+                        <h2>¿Quieres lucir radiante?</h2>
+                        <h4>El café ayuda a tener una piel más perfecta.</h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Contenedor para mostrar el catálogo de tipos de producto -->
+        <div class="container">
+            <!-- Título del contenido principal -->
+            <h4 class="center indigo-text" id="title">CATÁLOGO DE PRODUCTOS</h4>
+            <!-- Fila para mostrar las categorías disponibles -->
+            <div class="row" id="categorias"></div>
+        </div>
+    </main>
+    <!-- Pie del documento -->
+    <footer class="page-footer"></footer>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/components.js"></script>
+    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/public/index.js"></script>
+</body>
+
+</html>

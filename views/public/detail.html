@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Codificación de caracteres para el documento -->
+    <meta charset="utf-8">
+    <!-- Título del documento -->
+    <title>CoffeeShop - Detalles del producto</title>
+    <!-- Optimización de la página web para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivo como icono -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Importación de archivos CSS -->
+    <link rel="stylesheet" href="../../resources/css/icons.css">
+    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
+    <link rel="stylesheet" href="../../resources/css/public.css">
+</head>
+
+<body>
+    <!-- Encabezado del documento -->
+    <header></header>
+    <!-- Contenido principal del documento -->
+    <main class="container">
+        <!-- Título del contenido principal -->
+        <h4 class="center indigo-text" id="title">Detalles del producto</h4>
+        <!-- Componente Horizontal Card para mostrar el detalle de un producto -->
+        <div class="card horizontal" id="detalle">
+            <div class="card-image">
+                <!-- Se muestra una imagen por defecto mientras se carga la imagen del producto -->
+                <img id="imagen" src="../../resources/img/unknown.png">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h4 id="nombre" class="header"></h4>
+                    <p id="descripcion"></p>
+                    <p>Precio (US$) <b id="precio"></b></p> 
+                </div>
+                <div class="card-action">
+                    <!-- Formulario para agregar el producto al carrito de compras -->
+                    <form class="row" method="post" id="shopping-form">
+                        <!-- Campo oculto para asignar el id del producto -->
+                        <input type="hidden" id="id_producto" name="id_producto">
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">list</i>
+                            <input type="number" id="cantidad" name="cantidad" min="1" class="validate" required>
+                            <label for="cantidad">Cantidad</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <!-- Botón para enviar el formulario -->
+                            <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Agregar">
+                                <i class="material-icons">add_shopping_cart</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Pie del documento -->
+    <footer class="page-footer"></footer>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/components.js"></script>
+    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/public/detail.js"></script>
+</body>
+
+</html>

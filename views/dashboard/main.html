@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Codificación de caracteres para el documento -->
+    <meta charset="utf-8">
+    <!-- Título del documento -->
+    <title>Dashboard - Bienvenido</title>
+    <!-- Optimización de la página web para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivo como icono -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Importación de archivos CSS -->
+    <link rel="stylesheet" href="../../resources/css/icons.css">
+    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
+    <link rel="stylesheet" href="../../resources/css/dashboard.css">
+</head>
+
+<body>
+    <!-- Encabezado del documento -->
+    <header></header>
+    <!-- Contenido principal del documento -->
+    <main class="container">
+        <!-- Título del contenido principal -->
+        <h3 class="center-align">Bienvenido</h3>
+        <!-- Se muestra un saludo según la hora del cliente -->
+        <div class="row">
+            <h4 class="center-align blue-text" id="greeting"></h4>
+        </div>
+        <!-- Se muestran gráficos de acuerdo con algunos datos disponibles en la base de datos -->
+        <div class="row">
+            <div class="col s12 m6 l4">
+                <!-- Se muestra un gráfico de barra con la cantidad de productos por categoría -->
+                <canvas id="chart1"></canvas>
+            </div>
+            <div class="col s12 m6 l4">
+                <!-- Se muestra un gráfico de pastel con el porcentaje de productos por categoría -->
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+        <!-- Importación de la librería para generar los gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="../../resources/js/chart.umd.min.js"></script>
+    </main>
+    <!-- Pie del documento -->
+    <footer class="page-footer"></footer>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/components.js"></script>
+    <script type="text/javascript" src="../../controllers/dashboard/account.js"></script>
+    <script type="text/javascript" src="../../controllers/dashboard/main.js"></script>
+</body>
+
+</html>

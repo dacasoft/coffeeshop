@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Codificación de caracteres para el documento -->
+    <meta charset="utf-8">
+    <!-- Título del documento -->
+    <title>CoffeeShop - Registrarse</title>
+    <!-- Optimización de la página web para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivo como icono -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Importación de archivos CSS -->
+    <link rel="stylesheet" href="../../resources/css/icons.css">
+    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
+    <link rel="stylesheet" href="../../resources/css/public.css">
+</head>
+
+<body>
+    <!-- Encabezado del documento -->
+    <header></header>
+    <!-- Contenido principal del documento -->
+    <main class="container">
+        <!-- Título del contenido principal -->
+        <h4 class="center-align indigo-text">Regístrate como cliente</h4>
+        <!-- Formulario para crear cuenta -->
+        <form class="row" method="post" id="signup-form">
+            <!-- Campo oculto para asignar el token del reCAPTCHA -->
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">account_box</i>
+                <input type="text" id="nombres" name="nombres" class="validate" required>
+                <label for="nombres">Nombres</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">account_box</i>
+                <input type="text" id="apellidos" name="apellidos" class="validate" required>
+                <label for="apellidos">Apellidos</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">email</i>
+                <input type="email" id="correo" name="correo" maxlength="100" class="validate" required>
+                <label for="correo">Correo electrónico</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">how_to_reg</i>
+                <input type="text" id="dui" name="dui" placeholder="00000000-0" class="validate" required>
+                <label for="dui">DUI</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">phone</i>
+                <input type="text" id="telefono" name="telefono" placeholder="0000-0000" class="validate" required>
+                <label for="telefono">Teléfono</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">cake</i>
+                <input type="date" id="nacimiento" name="nacimiento" class="validate" required>
+                <label for="nacimiento">Nacimiento</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">security</i>
+                <input type="password" id="clave" name="clave" class="validate" required>
+                <label for="clave">Clave</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">security</i>
+                <input type="password" id="confirmar_clave" name="confirmar_clave" class="validate" required>
+                <label for="confirmar_clave">Confirmar clave</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">place</i>
+                <input type="text" id="direccion" name="direccion" maxlength="200" class="validate" required>
+                <label for="direccion">Dirección</label>
+            </div>
+            <label class="col s12 center-align">
+                <input type="checkbox" id="condicion" name="condicion" required>
+                <span>Acepto <a href="#" class="modal-trigger">términos y condiciones</a></span>
+            </label>
+            <div class="col s12 center-align">
+                <button type="reset" class="btn waves-effect grey tooltipped" data-tooltip="Reiniciar">
+                    <i class="material-icons">autorenew</i>
+                </button>
+                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Registrar">
+                    <i class="material-icons">send</i>
+                </button>
+            </div>
+        </form>
+        <!-- Importación de la librería para que funcione el reCAPTCHA. Para más información https://developers.google.com/recaptcha/docs/v3 -->
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdBzLQUAAAAAJvH-aCUUJgliLOjLcmrHN06RFXT"></script>
+    </main>
+    <footer class="page-footer"></footer>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/components.js"></script>
+    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/public/signup.js"></script>
+</body>
+
+</html>
