@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Codificación de caracteres para el documento -->
+    <meta charset="utf-8">
+    <!-- Título del documento -->
+    <title>CoffeeShop - Carrito de compras</title>
+    <!-- Optimización de la página web para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivo como icono -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Importación de archivos CSS -->
+    <link rel="stylesheet" href="../../resources/css/icons.css">
+    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
+    <link rel="stylesheet" href="../../resources/css/public.css">
+</head>
+
+<body>
+    <!-- Encabezado del documento -->
+    <header></header>
+    <!-- Contenido principal del documento -->
+    <main class="container">
+        <!-- Título del contenido principal -->
+        <h4 class="center-align indigo-text">Carrito de compras</h4>
+        <!-- Tabla para mostrar el detalle de los productos agregados al carrito de compras -->
+        <table class="striped">
+            <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
+            <thead>
+                <tr>
+                    <th>PRODUCTO</th>
+                    <th>PRECIO (US$)</th>
+                    <th>CANTIDAD</th>
+                    <th>SUBTOTAL (US$)</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tbody-rows"></tbody>
+        </table>
+        <!-- Fila para mostrar el monto total a pagar -->
+        <div class="row right-align">
+            <p>TOTAL A PAGAR (US$) <b id="pago"></b></p>
+        </div>
+        <!-- Fila para mostrar un botón que finaliza el pedido -->
+        <div class="row right-align">
+            <a onclick="finishOrder()" class="btn waves-effect blue tooltipped" data-tooltip="Finalizar pedido">
+                <i class="material-icons">payment</i>
+            </a>
+        </div>
+        <!-- Fila para mostrar un enlace con la dirección de la página web principal para seguir comprando -->
+        <div class="row right-align">
+            <a href="index.html" class="btn waves-effect indigo tooltipped" data-tooltip="Seguir comprando">
+                <i class="material-icons">store</i>
+            </a>
+        </div>
+        <!-- Componente Modal para mostrar una caja de diálogo -->
+        <div id="item-modal" class="modal">
+            <div class="modal-content">
+                <!-- Título para la caja de diálogo -->
+                <h4 class="center-align">Cambiar cantidad</h4>
+                <!-- Formulario para cambiar la cantidad de producto -->
+                <form class="row" method="post" id="item-form">
+                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                    <input type="number" id="id_detalle" name="id_detalle" class="hide">
+                    <div class="input-field col s12 m4 offset-m4">
+                        <i class="material-icons prefix">list</i>
+                        <input type="number" id="cantidad" name="cantidad" min="1" class="validate" required>
+                        <label for="cantidad">Cantidad</label>
+                    </div>
+                    <div class="col s12 center-align">
+                        <!-- Enlace para cerrar el componente Modal -->
+                        <a class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar">
+                            <i class="material-icons">cancel</i>
+                        </a>
+                        <!-- Botón para enviar el formulario -->
+                        <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Guardar">
+                            <i class="material-icons">save</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <!-- Pie del documento -->
+    <footer class="page-footer"></footer>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/components.js"></script>
+    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/public/cart.js"></script>
+</body>
+
+</html>

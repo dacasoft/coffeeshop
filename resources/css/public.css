@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.parallax-container {
+    height: 300px;
+}
+
+nav {
+    background-color: green;
+}
+
+.page-footer {
+    background-color: green;
+}

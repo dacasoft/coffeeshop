@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Codificación de caracteres para el documento -->
+    <meta charset="utf-8">
+    <!-- Título del documento -->
+    <title>CoffeeShop - Iniciar sesión</title>
+    <!-- Optimización de la página web para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivo como icono -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Importación de archivos CSS -->
+    <link rel="stylesheet" href="../../resources/css/icons.css">
+    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
+    <link rel="stylesheet" href="../../resources/css/public.css">
+</head>
+
+<body>
+    <!-- Encabezado del documento -->
+    <header></header>
+    <!-- Contenido principal del documento -->
+    <main class="container">
+        <!-- Título del contenido principal -->
+        <h4 class="center-align indigo-text">Iniciar sesión</h4>
+        <!-- Formulario para iniciar sesión -->
+        <form class="row" method="post" id="session-form">
+            <div class="input-field col s12 m4 offset-m4">
+                <i class="material-icons prefix">email</i>
+                <input type="email" id="usuario" name="usuario" class="validate" required>
+                <label for="usuario">Correo electrónico</label>
+            </div>
+            <div class="input-field col s12 m4 offset-m4">
+                <i class="material-icons prefix">security</i>
+                <input type="password" id="clave" name="clave" class="validate" required>
+                <label for="clave">Clave</label>
+            </div>
+            <div class="col s12 center-align">
+                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Ingresar">
+                    <i class="material-icons">send</i>
+                </button>
+            </div>
+        </form>
+        <div class="row center-align">
+            <!-- Enlace para crear una cuenta de usuario -->
+            <a href="signup.html" class="btn waves-effect indigo tooltipped" data-tooltip="Registrarse">
+                <i class="material-icons">person</i>
+            </a>
+        </div>
+    </main>
+    <!-- Pie del documento -->
+    <footer class="page-footer"></footer>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/components.js"></script>
+    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/public/login.js"></script>
+</body>
+
+</html>
