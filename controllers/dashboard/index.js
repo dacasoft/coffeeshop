@@ -29,7 +29,7 @@ SIGNUP_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SIGNUP_FORM);
     // Petición para registrar el primer usuario del sitio privado.
-    const DATA = await fetchData(USER_API, 'signup', FORM);
+    const DATA = await fetchData(USER_API, 'signUp', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'index.html');
@@ -45,7 +45,7 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(LOGIN_FORM);
     // Petición para iniciar sesión.
-    const DATA = await fetchData(USER_API, 'login', FORM);
+    const DATA = await fetchData(USER_API, 'logIn', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'main.html');

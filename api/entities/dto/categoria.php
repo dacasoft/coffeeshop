@@ -14,7 +14,7 @@ class Categoria extends CategoriaQueries
     protected $imagen = null;
     protected $descripcion = null;
     // Propiedad adicional para establecer la ruta de los archivos.
-    protected $ruta = '../../images/categorias/';
+    const RUTA = '../../images/categorias/';
 
     /*
     *   Métodos para validar y asignar valores de los atributos.
@@ -51,44 +51,13 @@ class Categoria extends CategoriaQueries
 
     public function setDescripcion($value)
     {
-        if ($value) {
-            if (Validator::validateString($value, 1, 250)) {
-                $this->descripcion = $value;
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            $this->descripcion = null;
+        if (!$value) {
             return true;
+        } elseif (Validator::validateString($value, 1, 250)) {
+            $this->descripcion = $value;
+            return true;
+        } else {
+            return false;
         }
-    }
-
-    /*
-    *   Métodos para obtener valores de los atributos.
-    */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
-
-    public function getRuta()
-    {
-        return $this->ruta;
     }
 }

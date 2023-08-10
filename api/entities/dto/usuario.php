@@ -78,37 +78,4 @@ class Usuario extends UsuarioQueries
             return false;
         }
     }
-
-    /*
-    *   Métodos para obtener valores de los atributos.
-    */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getNombres()
-    {
-        return $this->nombres;
-    }
-
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    public function getCorreo()
-    {
-        return $this->correo;
-    }
-
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    public function getClave()
-    {
-        return $this->clave;
-    }
 }

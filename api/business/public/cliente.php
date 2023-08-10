@@ -37,7 +37,7 @@ if (isset($_GET['action'])) {
     } else {
         // Se compara la acción a realizar cuando el cliente no ha iniciado sesión.
         switch ($_GET['action']) {
-            case 'signup':
+            case 'signUp':
                 $_POST = Validator::validateForm($_POST);
                 $secretKey = '6LdBzLQUAAAAAL6oP4xpgMao-SmEkmRCpoLBLri-';
                 $ip = $_SERVER['REMOTE_ADDR'];
@@ -82,7 +82,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'login':
+            case 'logIn':
                 $_POST = Validator::validateForm($_POST);
                 if (!$cliente->checkUser($_POST['usuario'])) {
                     $result['exception'] = 'Correo incorrecto';

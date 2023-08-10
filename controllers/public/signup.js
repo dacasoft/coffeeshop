@@ -28,7 +28,7 @@ SIGNUP_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SIGNUP_FORM);
     // Petición para registrar un cliente.
-    const DATA = await fetchData(USER_API, 'signup', FORM);
+    const DATA = await fetchData(USER_API, 'signUp', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'login.html');

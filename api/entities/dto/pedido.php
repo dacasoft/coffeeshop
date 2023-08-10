@@ -96,12 +96,4 @@ class Pedido extends PedidoQueries
             return false;
         }
     }
-
-    /*
-    *   Métodos para obtener valores de los atributos.
-    */
-    public function getIdPedido()
-    {
-        return $this->id_pedido;
-    }
 }

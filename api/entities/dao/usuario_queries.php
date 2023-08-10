@@ -33,6 +33,8 @@ class UsuarioQueries
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
         if (password_verify($password, $data['clave_usuario'])) {
+            $_SESSION['id_usuario'] = $this->id;
+            $_SESSION['alias_usuario'] = $this->alias;
             return true;
         } else {
             return false;
