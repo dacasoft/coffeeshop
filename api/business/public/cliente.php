@@ -86,15 +86,13 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$cliente->checkUser($_POST['usuario'])) {
                     $result['exception'] = 'Correo incorrecto';
-                } elseif (!$cliente->getEstado()) {
-                    $result['exception'] = 'La cuenta ha sido desactivada';
-                } elseif ($cliente->checkPassword($_POST['clave'])) {
+                } elseif (!$cliente->checkPassword($_POST['clave'])) {
+                    $result['exception'] = 'Clave incorrecta';
+                } elseif ($cliente->checkStatus()) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
-                    $_SESSION['id_cliente'] = $cliente->getId();
-                    $_SESSION['correo_cliente'] = $cliente->getCorreo();
                 } else {
-                    $result['exception'] = 'Clave incorrecta';
+                    $result['exception'] = 'La cuenta ha sido desactivada';
                 }
                 break;
             default:

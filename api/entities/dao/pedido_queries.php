@@ -17,14 +17,14 @@ class PedidoQueries
                 WHERE estado_pedido = 'Pendiente' AND id_cliente = ?";
         $params = array($_SESSION['id_cliente']);
         if ($data = Database::getRow($sql, $params)) {
-            $this->id_pedido = $data['id_pedido'];
+            $_SESSION['id_pedido'] = $data['id_pedido'];
             return true;
         } else {
             $sql = 'INSERT INTO pedido(direccion_pedido, id_cliente)
                     VALUES((SELECT direccion_cliente FROM cliente WHERE id_cliente = ?), ?)';
             $params = array($_SESSION['id_cliente'], $_SESSION['id_cliente']);
             // Se obtiene el ultimo valor insertado en la llave primaria de la tabla pedidos.
-            if ($this->id_pedido = Database::getLastRow($sql, $params)) {
+            if ($_SESSION['id_pedido'] = Database::getLastRow($sql, $params)) {
                 return true;
             } else {
                 return false;
@@ -38,7 +38,7 @@ class PedidoQueries
         // Se realiza una subconsulta para obtener el precio del producto.
         $sql = 'INSERT INTO detalle_pedido(id_producto, precio_producto, cantidad_producto, id_pedido)
                 VALUES(?, (SELECT precio_producto FROM producto WHERE id_producto = ?), ?, ?)';
-        $params = array($this->producto, $this->producto, $this->cantidad, $this->id_pedido);
+        $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['id_pedido']);
         return Database::executeRow($sql, $params);
     }
 
@@ -50,7 +50,7 @@ class PedidoQueries
                 INNER JOIN detalle_pedido USING(id_pedido)
                 INNER JOIN producto USING(id_producto)
                 WHERE id_pedido = ?';
-        $params = array($this->id_pedido);
+        $params = array($_SESSION['id_pedido']);
         return Database::getRows($sql, $params);
     }
 

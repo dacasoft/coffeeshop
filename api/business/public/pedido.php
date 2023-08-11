@@ -35,7 +35,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe agregar un producto al carrito';
                 } elseif ($result['dataset'] = $pedido->readOrderDetail()) {
                     $result['status'] = 1;
-                    $_SESSION['id_pedido'] = $pedido->getIdPedido();
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {

@@ -11,13 +11,12 @@ class ClienteQueries
     */
     public function checkUser($correo)
     {
-        $sql = 'SELECT id_cliente, estado_cliente
+        $sql = 'SELECT id_cliente
                 FROM cliente
                 WHERE correo_cliente = ?';
         $params = array($correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_cliente'];
-            $this->estado = $data['estado_cliente'];
             $this->correo = $correo;
             return true;
         } else {
@@ -27,12 +26,24 @@ class ClienteQueries
 
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave_cliente
+        $sql = 'SELECT clave_cliente, estado_cliente
                 FROM cliente
                 WHERE id_cliente = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
         if (password_verify($password, $data['clave_cliente'])) {
+            $this->estado = $data['estado_cliente'];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkStatus()
+    {
+        if ($this->estado) {
+            $_SESSION['id_cliente'] = $this->id;
+            $_SESSION['correo_cliente'] = $this->correo;
             return true;
         } else {
             return false;
