@@ -35,6 +35,10 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe agregar un producto al carrito';
                 } elseif ($result['dataset'] = $pedido->readOrderDetail()) {
                     $result['status'] = 1;
+<<<<<<< HEAD
+=======
+                    $_SESSION['id_pedido'] = $pedido->getIdPedido();
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {

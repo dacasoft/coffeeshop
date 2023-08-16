@@ -96,4 +96,15 @@ class Pedido extends PedidoQueries
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+    /*
+    *   Métodos para obtener valores de los atributos.
+    */
+    public function getIdPedido()
+    {
+        return $this->id_pedido;
+    }
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
 }

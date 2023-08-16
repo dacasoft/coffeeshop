@@ -252,10 +252,17 @@ class Validator
     *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
     */
+<<<<<<< HEAD
     public static function saveFile($file, $path)
     {
         // Se verifica que el archivo sea movido al servidor.
         if (move_uploaded_file($file['tmp_name'], $path . self::$fileName)) {
+=======
+    public static function saveFile($file, $path, $name)
+    {
+        // Se verifica que el archivo sea movido al servidor.
+        if (move_uploaded_file($file['tmp_name'], $path . $name)) {
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
             return true;
         } else {
             return false;

@@ -17,7 +17,11 @@ class Producto extends ProductoQueries
     protected $categoria = null;
     protected $estado = null;
     // Propiedad adicional para establecer la ruta de los archivos.
+<<<<<<< HEAD
     const RUTA = '../../images/productos/';
+=======
+    protected $ruta = '../../images/productos/';
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
 
     /*
     *   Métodos para validar y asignar valores de los atributos.
@@ -91,4 +95,50 @@ class Producto extends ProductoQueries
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+    /*
+    *   Métodos para obtener valores de los atributos.
+    */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    public function getRuta()
+    {
+        return $this->ruta;
+    }
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
 }

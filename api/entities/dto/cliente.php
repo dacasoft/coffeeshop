@@ -127,4 +127,60 @@ class Cliente extends ClienteQueries
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+    /*
+    *   Métodos para obtener valores de los atributos.
+    */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getNombres()
+    {
+        return $this->nombres;
+    }
+
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
+
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    public function getDUI()
+    {
+        return $this->dui;
+    }
+
+    public function getNacimiento()
+    {
+        return $this->nacimiento;
+    }
+
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    public function getClave()
+    {
+        return $this->clave;
+    }
+
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
 }

@@ -52,7 +52,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($usuario->editProfile()) {
                     $result['status'] = 1;
+<<<<<<< HEAD
                     $_SESSION['alias_usuario'] = $_POST['alias'];
+=======
+                    $_SESSION['alias_usuario'] = $usuario->getAlias();
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                     $result['message'] = 'Perfil modificado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
@@ -177,7 +181,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
+<<<<<<< HEAD
             case 'signUp':
+=======
+            case 'signup':
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setNombres($_POST['nombres'])) {
                     $result['exception'] = 'Nombres incorrectos';
@@ -198,13 +206,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+<<<<<<< HEAD
             case 'logIn':
+=======
+            case 'login':
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->checkUser($_POST['alias'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($usuario->checkPassword($_POST['clave'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
+<<<<<<< HEAD
+=======
+                    $_SESSION['id_usuario'] = $usuario->getId();
+                    $_SESSION['alias_usuario'] = $usuario->getAlias();
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 } else {
                     $result['exception'] = 'Clave incorrecta';
                 }

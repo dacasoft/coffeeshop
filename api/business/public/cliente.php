@@ -37,7 +37,11 @@ if (isset($_GET['action'])) {
     } else {
         // Se compara la acción a realizar cuando el cliente no ha iniciado sesión.
         switch ($_GET['action']) {
+<<<<<<< HEAD
             case 'signUp':
+=======
+            case 'signup':
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 $_POST = Validator::validateForm($_POST);
                 $secretKey = '6LdBzLQUAAAAAL6oP4xpgMao-SmEkmRCpoLBLri-';
                 $ip = $_SERVER['REMOTE_ADDR'];
@@ -82,6 +86,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+<<<<<<< HEAD
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
                 if (!$cliente->checkUser($_POST['usuario'])) {
@@ -93,6 +98,21 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Autenticación correcta';
                 } else {
                     $result['exception'] = 'La cuenta ha sido desactivada';
+=======
+            case 'login':
+                $_POST = Validator::validateForm($_POST);
+                if (!$cliente->checkUser($_POST['usuario'])) {
+                    $result['exception'] = 'Correo incorrecto';
+                } elseif (!$cliente->getEstado()) {
+                    $result['exception'] = 'La cuenta ha sido desactivada';
+                } elseif ($cliente->checkPassword($_POST['clave'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta';
+                    $_SESSION['id_cliente'] = $cliente->getId();
+                    $_SESSION['correo_cliente'] = $cliente->getCorreo();
+                } else {
+                    $result['exception'] = 'Clave incorrecta';
+>>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 }
                 break;
             default:
