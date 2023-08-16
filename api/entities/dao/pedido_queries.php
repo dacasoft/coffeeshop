@@ -17,22 +17,14 @@ class PedidoQueries
                 WHERE estado_pedido = 'Pendiente' AND id_cliente = ?";
         $params = array($_SESSION['id_cliente']);
         if ($data = Database::getRow($sql, $params)) {
-<<<<<<< HEAD
             $_SESSION['id_pedido'] = $data['id_pedido'];
-=======
-            $this->id_pedido = $data['id_pedido'];
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
             return true;
         } else {
             $sql = 'INSERT INTO pedido(direccion_pedido, id_cliente)
                     VALUES((SELECT direccion_cliente FROM cliente WHERE id_cliente = ?), ?)';
             $params = array($_SESSION['id_cliente'], $_SESSION['id_cliente']);
             // Se obtiene el ultimo valor insertado en la llave primaria de la tabla pedidos.
-<<<<<<< HEAD
             if ($_SESSION['id_pedido'] = Database::getLastRow($sql, $params)) {
-=======
-            if ($this->id_pedido = Database::getLastRow($sql, $params)) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 return true;
             } else {
                 return false;
@@ -46,11 +38,7 @@ class PedidoQueries
         // Se realiza una subconsulta para obtener el precio del producto.
         $sql = 'INSERT INTO detalle_pedido(id_producto, precio_producto, cantidad_producto, id_pedido)
                 VALUES(?, (SELECT precio_producto FROM producto WHERE id_producto = ?), ?, ?)';
-<<<<<<< HEAD
         $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['id_pedido']);
-=======
-        $params = array($this->producto, $this->producto, $this->cantidad, $this->id_pedido);
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
         return Database::executeRow($sql, $params);
     }
 
@@ -62,11 +50,7 @@ class PedidoQueries
                 INNER JOIN detalle_pedido USING(id_pedido)
                 INNER JOIN producto USING(id_producto)
                 WHERE id_pedido = ?';
-<<<<<<< HEAD
         $params = array($_SESSION['id_pedido']);
-=======
-        $params = array($this->id_pedido);
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
         return Database::getRows($sql, $params);
     }
 

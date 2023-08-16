@@ -11,20 +11,12 @@ class ClienteQueries
     */
     public function checkUser($correo)
     {
-<<<<<<< HEAD
         $sql = 'SELECT id_cliente
-=======
-        $sql = 'SELECT id_cliente, estado_cliente
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 FROM cliente
                 WHERE correo_cliente = ?';
         $params = array($correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_cliente'];
-<<<<<<< HEAD
-=======
-            $this->estado = $data['estado_cliente'];
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
             $this->correo = $correo;
             return true;
         } else {
@@ -34,17 +26,12 @@ class ClienteQueries
 
     public function checkPassword($password)
     {
-<<<<<<< HEAD
         $sql = 'SELECT clave_cliente, estado_cliente
-=======
-        $sql = 'SELECT clave_cliente
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                 FROM cliente
                 WHERE id_cliente = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
         if (password_verify($password, $data['clave_cliente'])) {
-<<<<<<< HEAD
             $this->estado = $data['estado_cliente'];
             return true;
         } else {
@@ -57,8 +44,6 @@ class ClienteQueries
         if ($this->estado) {
             $_SESSION['id_cliente'] = $this->id;
             $_SESSION['correo_cliente'] = $this->correo;
-=======
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
             return true;
         } else {
             return false;
