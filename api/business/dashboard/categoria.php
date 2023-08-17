@@ -49,11 +49,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Validator::getFileError();
                 } elseif ($categoria->createRow()) {
                     $result['status'] = 1;
-<<<<<<< HEAD
                     if (Validator::saveFile($_FILES['archivo'], $categoria::RUTA)) {
-=======
-                    if (Validator::saveFile($_FILES['archivo'], $categoria->getRuta(), $categoria->getImagen())) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                         $result['message'] = 'Categoría creada correctamente';
                     } else {
                         $result['message'] = 'Categoría creada pero no se guardó la imagen';
@@ -94,11 +90,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Validator::getFileError();
                 } elseif ($categoria->updateRow($data['imagen_categoria'])) {
                     $result['status'] = 1;
-<<<<<<< HEAD
                     if (Validator::saveFile($_FILES['archivo'], $categoria::RUTA)) {
-=======
-                    if (Validator::saveFile($_FILES['archivo'], $categoria->getRuta(), $categoria->getImagen())) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                         $result['message'] = 'Categoría modificada correctamente';
                     } else {
                         $result['message'] = 'Categoría modificada pero no se guardó la imagen';
@@ -114,11 +106,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Categoría inexistente';
                 } elseif ($categoria->deleteRow()) {
                     $result['status'] = 1;
-<<<<<<< HEAD
                     if (Validator::deleteFile($categoria::RUTA, $data['imagen_categoria'])) {
-=======
-                    if (Validator::deleteFile($categoria->getRuta(), $data['imagen_categoria'])) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                         $result['message'] = 'Categoría eliminada correctamente';
                     } else {
                         $result['message'] = 'Categoría eliminada pero no se borró la imagen';

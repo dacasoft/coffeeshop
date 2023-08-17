@@ -57,11 +57,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Validator::getFileError();
                 } elseif ($producto->createRow()) {
                     $result['status'] = 1;
-<<<<<<< HEAD
                     if (Validator::saveFile($_FILES['archivo'], $producto::RUTA)) {
-=======
-                    if (Validator::saveFile($_FILES['archivo'], $producto->getRuta(), $producto->getImagen())) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                         $result['message'] = 'Producto creado correctamente';
                     } else {
                         $result['message'] = 'Producto creado pero no se guardó la imagen';
@@ -108,11 +104,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Validator::getFileError();
                 } elseif ($producto->updateRow($data['imagen_producto'])) {
                     $result['status'] = 1;
-<<<<<<< HEAD
                     if (Validator::saveFile($_FILES['archivo'], $producto::RUTA)) {
-=======
-                    if (Validator::saveFile($_FILES['archivo'], $producto->getRuta(), $producto->getImagen())) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                         $result['message'] = 'Producto modificado correctamente';
                     } else {
                         $result['message'] = 'Producto modificado pero no se guardó la imagen';
@@ -128,11 +120,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Producto inexistente';
                 } elseif ($producto->deleteRow()) {
                     $result['status'] = 1;
-<<<<<<< HEAD
                     if (Validator::deleteFile($producto::RUTA, $data['imagen_producto'])) {
-=======
-                    if (Validator::deleteFile($producto->getRuta(), $data['imagen_producto'])) {
->>>>>>> d707afb539a5d53c3e72db2b6c06a6ad128cf50f
                         $result['message'] = 'Producto eliminado correctamente';
                     } else {
                         $result['message'] = 'Producto eliminado pero no se borró la imagen';
