@@ -1,4 +1,4 @@
-Demo desarrollada con las siguientes tecnologías y herramientas:
+Demo de tienda en línea desarrollada con las siguientes tecnologías y herramientas:
 - XAMPP v8.2.0 (PHP 8.2.0 y Apache 2.4.54)
 - MariaDB v10.4.27
 - Material Design con Materialize v1.0.0
