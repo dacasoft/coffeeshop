@@ -54,41 +54,41 @@
         </form>
         <!-- Contenedor con enlace para abrir la caja de diálogo del formulario de cambiar constraseña -->
         <div class="center">
-            <a onclick="openPassword()" class="btn waves-effect indigo tooltipped" data-tooltip="Cambiar clave">
+            <a onclick="openPassword()" class="btn waves-effect indigo tooltipped" data-tooltip="Cambiar contraseña">
                 <i class="material-icons">key</i>
             </a>
         </div>
         <!-- Componente Modal para mostrar una caja de diálogo -->
         <div id="password-modal" class="modal">
             <!-- Enlace para cerrar el componente Modal -->
-            <div class="row right">
+            <p class="right">
                 <a class="black-text tooltipped modal-close" data-tooltip="Cerrar">
                     <i class="small material-icons">close</i>
                 </a>
-            </div>
+            </p>
             <!-- Contenido del componente Modal -->
             <div class="modal-content">
                 <!-- Título para la caja de diálogo -->
-                <h4 class="center-align">Cambiar clave</h4>
+                <h4 class="center-align">Cambiar contraseña</h4>
                 <!-- Formulario para actualizar contraseña -->
                 <form class="row" method="post" id="password-form">
                     <div class="input-field col s12 m6 offset-m3">
                         <i class="material-icons prefix">security</i>
                         <input id="actual" type="password" name="actual" class="validate" required>
-                        <label for="actual">Clave actual</label>
+                        <label for="actual">Contraseña actual</label>
                     </div>
                     <div class="col s12 center-align">
-                        <label>CLAVE NUEVA</label>
+                        <label>CONTRASEÑA NUEVA</label>
                     </div>
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">security</i>
                         <input id="nueva" type="password" name="nueva" class="validate" required>
-                        <label for="nueva">Clave</label>
+                        <label for="nueva">Contraseña</label>
                     </div>
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">security</i>
                         <input id="confirmar" type="password" name="confirmar" class="validate" required>
-                        <label for="confirmar">Confirmar clave</label>
+                        <label for="confirmar">Confirmar contraseña</label>
                     </div>
                     <div class="col s12 center-align">
                         <button type="reset" class="btn waves-effect grey tooltipped" data-tooltip="Reiniciar">

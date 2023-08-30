@@ -63,9 +63,9 @@ if (isset($_GET['action'])) {
                 if (!$usuario->setId($_SESSION['id_usuario'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif (!$usuario->checkPassword($_POST['actual'])) {
-                    $result['exception'] = 'Clave actual incorrecta';
+                    $result['exception'] = 'Contraseña actual incorrecta';
                 } elseif ($_POST['nueva'] != $_POST['confirmar']) {
-                    $result['exception'] = 'Claves nuevas diferentes';
+                    $result['exception'] = 'Contraseñas nuevas diferentes';
                 } elseif (!$usuario->setClave($_POST['nueva'])) {
                     $result['exception'] = Validator::getPasswordError();
                 } elseif ($usuario->changePassword()) {
@@ -109,7 +109,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->setAlias($_POST['alias'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['clave'] != $_POST['confirmar']) {
-                    $result['exception'] = 'Claves diferentes';
+                    $result['exception'] = 'Contraseñas diferentes';
                 } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = Validator::getPasswordError();
                 } elseif ($usuario->createRow()) {
@@ -188,7 +188,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->setAlias($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['codigo'] != $_POST['confirmar']) {
-                    $result['exception'] = 'Claves diferentes';
+                    $result['exception'] = 'Contraseñas diferentes';
                 } elseif (!$usuario->setClave($_POST['codigo'])) {
                     $result['exception'] = Validator::getPasswordError();
                 } elseif ($usuario->createRow()) {
@@ -206,7 +206,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                 } else {
-                    $result['exception'] = 'Clave incorrecta';
+                    $result['exception'] = 'Contraseña incorrecta';
                 }
                 break;
             default:

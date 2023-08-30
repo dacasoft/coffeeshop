@@ -1,3 +1,13 @@
+// Constante para establecer la mascara del campo teléfono.
+const MASKED_PHONE = vanillaTextMask.maskInput({
+    inputElement: document.getElementById('telefono'),
+    mask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+});
+// Constante para establecer la mascara del campo DUI.
+const MASKED_DUI = vanillaTextMask.maskInput({
+    inputElement: document.getElementById('dui'),
+    mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]
+});
 // Constante para establecer el formulario de registrar cliente.
 const SIGNUP_FORM = document.getElementById('signup-form');
 // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
