@@ -42,11 +42,7 @@ class Validator
     {
         foreach ($fields as $index => $value) {
             $value = trim($value);
-            if ($value != '') {
-                $fields[$index] = $value;
-            } else {
-                $fields[$index] = null;
-            }
+            $fields[$index] = $value;
         }
         return $fields;
     }
@@ -68,28 +64,32 @@ class Validator
 
     /*
     *   Método para validar un archivo de imagen.
-    *   Parámetros: $file (archivo de un formulario), $maxWidth (ancho máximo para la imagen) y $maxHeigth (alto máximo para la imagen).
+    *   Parámetros: $file (archivo de un formulario), $max_width (ancho máximo para la imagen) y $max_heigth (alto máximo para la imagen).
     *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
     */
-    public static function validateImageFile($file, $maxWidth, $maxHeigth)
+    public static function validateImageFile($file, $max_width, $max_heigth)
     {
-        // Se obtienen las dimensiones y el tipo de la imagen.
-        list($width, $height, $type) = getimagesize($file['tmp_name']);
-        // Se comprueba si el archivo tiene un tamaño mayor a 2MB.
-        if ($file['size'] > 2097152) {
-            self::$fileError = 'El tamaño de la imagen debe ser menor a 2MB';
-            return false;
-        } elseif ($width > $maxWidth || $height > $maxHeigth) {
-            self::$fileError = 'La dimensión de la imagen es incorrecta';
-            return false;
-        } elseif ($type == 2 || $type == 3) {
-            // Se obtiene la extensión del archivo (.jpg o .png) y se convierte a minúsculas.
-            $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            // Se establece un nombre único para el archivo.
-            self::$fileName = uniqid() . '.' . $extension;
-            return true;
+        if (is_uploaded_file($file['tmp_name'])) {
+            // Se obtienen las dimensiones y el tipo de la imagen.
+            list($width, $height, $type) = getimagesize($file['tmp_name']);
+            // Se comprueba si el archivo tiene un tamaño mayor a 2MB.
+            if ($file['size'] > 2097152) {
+                self::$fileError = 'El tamaño de la imagen debe ser menor a 2MB';
+                return false;
+            } elseif ($width > $max_width || $height > $max_heigth) {
+                self::$fileError = 'La dimensión de la imagen es incorrecta';
+                return false;
+            } elseif ($type == 2 || $type == 3) {
+                // Se obtiene la extensión del archivo (.jpg o .png) y se convierte a minúsculas.
+                $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                // Se establece un nombre único para el archivo.
+                self::$fileName = uniqid() . '.' . $extension;
+                return true;
+            } else {
+                self::$fileError = 'El tipo de imagen debe ser jpg o png';
+                return false;
+            }
         } else {
-            self::$fileError = 'El tipo de imagen debe ser jpg o png';
             return false;
         }
     }
@@ -254,8 +254,25 @@ class Validator
     */
     public static function saveFile($file, $path)
     {
-        // Se verifica que el archivo sea movido al servidor.
-        if (move_uploaded_file($file['tmp_name'], $path . self::$fileName)) {
+        if (!$file) {
+            return false;
+        } elseif (move_uploaded_file($file['tmp_name'], $path . self::$fileName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    *   Método para reemplazar un archivo en el servidor.
+    *   Parámetros: $file (archivo), $path (ruta del archivo) y $old_filename (nombre del archivo anterior).
+    *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
+    */
+    public static function changeFile($file, $path, $old_filename)
+    {
+        if (!self::saveFile($file, $path)) {
+            return false;
+        } elseif (self::deleteFile($path, $old_filename)) {
             return true;
         } else {
             return false;
@@ -264,38 +281,16 @@ class Validator
 
     /*
     *   Método para validar un archivo al momento de borrarlo del servidor.
-    *   Parámetros: $path (ruta del archivo) y $name (nombre del archivo).
+    *   Parámetros: $path (ruta del archivo) y $filename (nombre del archivo).
     *   Retorno: booleano (true si el archivo fue borrado del servidor o false en caso contrario).
     */
-    public static function deleteFile($path, $name)
+    public static function deleteFile($path, $filename)
     {
-        // Se comprueba que el archivo sea borrado del servidor.
-        if (@unlink($path . $name)) {
+        if ($filename == 'default.png') {
+            return true;
+        } elseif (@unlink($path . $filename)) {
             return true;
         } else {
-            return false;
-        }
-    }
-
-    /*
-    *   Método para validar un archivo PDF.
-    *   Parámetros: $file (archivo de un formulario).
-    *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
-    */
-    public static function validatePDFFile($file)
-    {
-        // Se comprueba si el archivo tiene un tamaño mayor a 2MB.
-        if ($file['size'] > 2097152) {
-            self::$fileError = 'El tamaño del archivo debe ser menor a 2MB';
-            return false;
-        } elseif (mime_content_type($file['tmp_name']) == 'application/pdf') {
-            // Se obtiene la extensión del archivo y se convierte a minúsculas.
-            $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            // Se establece un nombre único para el archivo.
-            self::$fileName = uniqid() . '.' . $extension;
-            return true;
-        } else {
-            self::$fileError = 'El tipo de archivo debe ser PDF';
             return false;
         }
     }

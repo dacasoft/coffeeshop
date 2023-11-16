@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Título del documento -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Llamada de archivos -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle"></h3>
+        <!-- Contenedor de gráficos -->
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <!-- Se muestra un gráfico con la cantidad de productos por categoría -->
+                <canvas id="chart1"></canvas>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <!-- Se muestra un gráfico con el porcentaje de productos por categoría -->
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+        <!-- Importación de la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+        <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
+    </main>
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/dashboard.js"></script>
+</body>
+
+</html>

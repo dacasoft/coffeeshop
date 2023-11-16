@@ -1,8 +1,10 @@
 Demo de tienda en línea desarrollada con las siguientes tecnologías y herramientas:
+BACKEND
 - XAMPP v8.2.0 (PHP 8.2.0 y Apache 2.4.54)
 - MariaDB v10.4.27
-- Material Design con Materialize v1.0.0
+FRONTEND
 - Vanilla JS
+- Bootstrap v5.3.0
 
 Pasos para poner en funcionamiento el proyecto en Microsoft Windows:
 1. Colocar la carpeta del proyecto en el directorio C:/xampp/htdocs/
