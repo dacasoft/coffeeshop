@@ -4,7 +4,7 @@
 */
 
 // Constante para completar la ruta de la API.
-const USER_API = 'services/admin/usuario.php';
+const USER_API = 'services/admin/administrador.php';
 // Constante para establecer el elemento del contenido principal.
 const MAIN = document.querySelector('main');
 MAIN.style.paddingTop = '100px';
@@ -46,7 +46,7 @@ const loadTemplate = async () => {
                                         <a class="nav-link" href="categoria.html">Categorías</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="usuario.html">Usuarios</a>
+                                        <a class="nav-link" href="administrador.html">Administradores</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuenta: <b>${DATA.username}</b></a>
@@ -67,12 +67,12 @@ const loadTemplate = async () => {
                     <nav class="navbar fixed-bottom bg-body-tertiary">
                         <div class="container pt-2">
                             <div>
-                                <p><i class="bi bi-bootstrap-fill"></i> Sitio privado de <b>CoffeeShop</b></p>
+                                <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
                                 <p><i class="bi bi-c-circle-fill"></i> 2018-2024 Todos los derechos reservados</p>
                             </div>
                             <div>
                                 <p><a class="nav-link" href="../public/" target="_blank"><i class="bi bi-cart-fill"></i> Sitio público</a></p>
-                                <p><i class="bi bi-envelope-fill"></i> Soporte Técnico: <b>dacasoft@outlook.com</b></p>
+                                <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
                             </div>
                         </div>
                     </nav>
@@ -99,8 +99,8 @@ const loadTemplate = async () => {
                 <footer>
                     <nav class="navbar fixed-bottom bg-body-tertiary">
                         <div class="container pt-2">
-                            <p><i class="bi bi-bootstrap-fill"></i> Sitio privado de <b>CoffeeShop</b></p>
-                            <p><i class="bi bi-envelope-fill"></i> Soporte Técnico: <b>dacasoft@outlook.com</b></p>
+                            <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
+                            <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
                         </div>
                     </nav>
                 </footer>

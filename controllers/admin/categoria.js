@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Administrar categorías';
+    MAIN_TITLE.textContent = 'Gestionar categorías';
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
@@ -54,7 +54,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });
 
@@ -73,6 +73,7 @@ const fillTable = async (form = null) => {
     const DATA = await fetchData(CATEGORIA_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
+        console.log(DATA)
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
@@ -98,7 +99,7 @@ const fillTable = async (form = null) => {
         // Se muestra un mensaje de acuerdo con el resultado.
         ROWS_FOUND.textContent = DATA.message;
     } else {
-        sweetAlert(4, DATA.exception, true);
+        sweetAlert(4, DATA.error, true);
     }
 }
 
@@ -139,7 +140,7 @@ const openUpdate = async (id) => {
         NOMBRE_CATEGORIA.value = ROW.nombre_categoria;
         DESCRIPCION_CATEGORIA.value = ROW.descripcion_categoria;
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 }
 
@@ -165,7 +166,7 @@ const openDelete = async (id) => {
             // Se carga nuevamente la tabla para visualizar los cambios.
             fillTable();
         } else {
-            sweetAlert(2, DATA.exception, false);
+            sweetAlert(2, DATA.error, false);
         }
     }
 }

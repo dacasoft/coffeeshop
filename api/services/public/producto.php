@@ -1,5 +1,5 @@
 <?php
-// Se incluye la clase para la transferencia y acceso a datos.
+// Se incluye la clase del modelo.
 require_once('../../models/data/producto_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
             $result['exception'] = 'Acción no disponible';
     }
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
-    header('content-type: application/json; charset=utf-8');
+    header('Content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.
     print(json_encode($result));
 } else {

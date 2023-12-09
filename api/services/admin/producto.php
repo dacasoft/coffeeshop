@@ -1,5 +1,5 @@
 <?php
-// Se incluye la clase para la transferencia y acceso a datos.
+// Se incluye la clase del modelo.
 require_once('../../models/data/producto_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -9,130 +9,117 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $producto = new ProductoData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'fileStatus' => null);
+    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['idUsuario'])) {
+    if (isset($_SESSION['idAdministrador'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
-                $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $producto->searchRows($_POST['search'])) {
+                if (!Validator::validateSearch($_POST['search'])) {
+                    $result['error'] = Validator::getSearchError();
+                } elseif ($result['dataset'] = $producto->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay coincidencias';
+                    $result['error'] = 'No hay coincidencias';
                 }
                 break;
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
-                if (!$producto->setNombre($_POST['nombreProducto'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$producto->setDescripcion($_POST['descripcionProducto'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$producto->setPrecio($_POST['precioProducto'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!$producto->setExistencias($_POST['existenciasProducto'])) {
-                    $result['exception'] = 'Existencias incorrectas';
-                } elseif (!$producto->setCategoria($_POST['categoriaProducto'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!$producto->setImagen($_FILES['imagenProducto'])) {
-                    $result['exception'] = Validator::getFileError();
+                if (
+                    !$producto->setNombre($_POST['nombreProducto']) or
+                    !$producto->setDescripcion($_POST['descripcionProducto']) or
+                    !$producto->setPrecio($_POST['precioProducto']) or
+                    !$producto->setExistencias($_POST['existenciasProducto']) or
+                    !$producto->setCategoria($_POST['categoriaProducto']) or
+                    !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0) or
+                    !$producto->setImagen($_FILES['imagenProducto'])
+                ) {
+                    $result['error'] = $producto->getDataError();
                 } elseif ($producto->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto creado correctamente';
                     // Se asigna el estado del archivo después de insertar.
                     $result['fileStatus'] = Validator::saveFile($_FILES['imagenProducto'], $producto::RUTA_IMAGEN);
                 } else {
-                    $result['exception'] = Database::getException();;
-                }
-                break;
-            case 'readOne':
-                if (!$producto->setId($_POST['idProducto'])) {
-                    $result['exception'] = 'Producto incorrecto';
-                } elseif ($result['dataset'] = $producto->readOne()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'Producto inexistente';
+                    $result['error'] = 'Ocurrió un problema al crear el producto';
                 }
                 break;
             case 'readAll':
                 if ($result['dataset'] = $producto->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    $result['error'] = 'No existen productos registrados';
+                }
+                break;
+            case 'readOne':
+                if (!$producto->setId($_POST['idProducto'])) {
+                    $result['error'] = $producto->getDataError();
+                } elseif ($result['dataset'] = $producto->readOne()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Producto inexistente';
                 }
                 break;
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
-                if (!$producto->setId($_POST['idProducto'])) {
-                    $result['exception'] = 'Producto incorrecto';
-                } elseif (!$data = $producto->readOne()) {
-                    $result['exception'] = 'Producto inexistente';
-                } elseif (!$producto->setNombre($_POST['nombreProducto'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$producto->setDescripcion($_POST['descripcionProducto'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$producto->setPrecio($_POST['precioProducto'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!$producto->setCategoria($_POST['categoriaProducto'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!$producto->setImagen($_FILES['imagenProducto'], $data['imagen_producto'])) {
-                    $result['exception'] = Validator::getFileError();
+                if (
+                    !$producto->setId($_POST['idProducto']) or
+                    !$producto->setFilename() or
+                    !$producto->setNombre($_POST['nombreProducto']) or
+                    !$producto->setDescripcion($_POST['descripcionProducto']) or
+                    !$producto->setPrecio($_POST['precioProducto']) or
+                    !$producto->setCategoria($_POST['categoriaProducto']) or
+                    !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0) or
+                    !$producto->setImagen($_FILES['imagenProducto'], $producto->getFilename())
+                ) {
+                    $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto modificado correctamente';
                     // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenProducto'], $producto::RUTA_IMAGEN, $data['imagen_producto']);
+                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenProducto'], $producto::RUTA_IMAGEN, $producto->getFilename());
                 } else {
-                    $result['exception'] = Database::getException();
+                    $result['error'] = 'Ocurrió un problema al modificar el producto';
                 }
                 break;
             case 'deleteRow':
-                if (!$producto->setId($_POST['idProducto'])) {
-                    $result['exception'] = 'Producto incorrecto';
-                } elseif (!$data = $producto->readOne()) {
-                    $result['exception'] = 'Producto inexistente';
+                if (
+                    !$producto->setId($_POST['idProducto']) or
+                    !$producto->setFilename()
+                ) {
+                    $result['error'] = $producto->getDataError();
                 } elseif ($producto->deleteRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto eliminado correctamente';
                     // Se asigna el estado del archivo después de eliminar.
-                    $result['fileStatus'] = Validator::deleteFile($producto::RUTA_IMAGEN, $data['imagen_producto']);
+                    $result['fileStatus'] = Validator::deleteFile($producto::RUTA_IMAGEN, $producto->getFilename());
                 } else {
-                    $result['exception'] = Database::getException();
+                    $result['error'] = 'Ocurrió un problema al eliminar el producto';
                 }
                 break;
             case 'cantidadProductosCategoria':
                 if ($result['dataset'] = $producto->cantidadProductosCategoria()) {
                     $result['status'] = 1;
                 } else {
-                    $result['exception'] = 'No hay datos disponibles';
+                    $result['error'] = 'No hay datos disponibles';
                 }
                 break;
             case 'porcentajeProductosCategoria':
                 if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
                     $result['status'] = 1;
                 } else {
-                    $result['exception'] = 'No hay datos disponibles';
+                    $result['error'] = 'No hay datos disponibles';
                 }
                 break;
             default:
-                $result['exception'] = 'Acción no disponible dentro de la sesión';
+                $result['error'] = 'Acción no disponible dentro de la sesión';
         }
+        // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
+        $result['exception'] = Database::getException();
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
-        header('content-type: application/json; charset=utf-8');
+        header('Content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
         print(json_encode($result));
     } else {

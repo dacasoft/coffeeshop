@@ -8,25 +8,11 @@ require_once('../../models/handler/cliente_handler.php');
 */
 class ClienteData extends ClienteHandler
 {
-    // Declaración de atributos (propiedades).
-    protected $id = null;
-    protected $nombres = null;
-    protected $apellidos = null;
-    protected $correo = null;
-    protected $telefono = null;
-    protected $dui = null;
-    protected $nacimiento = null;
-    protected $direccion = null;
-    protected $clave = null;
-    protected $estado = null;
-    /*
-    *   ESTADOS PARA UN CLIENTE
-    *   1 (valor por defecto). Cliente activo que puede iniciar sesión.
-    *   0. Cliente inactivo y no puede iniciar sesión en el sitio público.
-    */
+    // Declaración de atributo para el manejo de errores en los datos.
+    private $data_error = null;
 
     /*
-    *   Métodos para validar y asignar valores de los atributos.
+    *   Métodos para validar y establecer los datos.
     */
     public function setId($value)
     {
@@ -40,7 +26,7 @@ class ClienteData extends ClienteHandler
 
     public function setNombres($value)
     {
-        if (Validator::validateAlphabetic($value, 1, 50)) {
+        if (Validator::validateAlphabetic($value)) {
             $this->nombres = $value;
             return true;
         } else {
@@ -50,7 +36,7 @@ class ClienteData extends ClienteHandler
 
     public function setApellidos($value)
     {
-        if (Validator::validateAlphabetic($value, 1, 50)) {
+        if (Validator::validateAlphabetic($value)) {
             $this->apellidos = $value;
             return true;
         } else {
@@ -100,7 +86,7 @@ class ClienteData extends ClienteHandler
 
     public function setDireccion($value)
     {
-        if (Validator::validateString($value, 1, 250)) {
+        if (Validator::validateString($value)) {
             $this->direccion = $value;
             return true;
         } else {
@@ -126,5 +112,11 @@ class ClienteData extends ClienteHandler
         } else {
             return false;
         }
+    }
+
+    // Método para obtener el error de los datos.
+    public function getDataError()
+    {
+        return $this->data_error;
     }
 }

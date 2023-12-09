@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
     if (DATA.session) {
         // Se direcciona a la página web de bienvenida.
-        location.href = 'main.html';
+        location.href = 'dashboard.html';
     } else if (DATA.status) {
         // Se establece el título del contenido principal.
         MAIN_TITLE.textContent = 'Iniciar sesión';
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         MAIN_TITLE.textContent = 'Registrar primer usuario';
         // Se muestra el formulario para registrar el primer usuario.
         SIGNUP_FORM.classList.remove('d-none');
-        sweetAlert(4, DATA.exception, true);
+        sweetAlert(4, DATA.error, true);
     }
 });
 
@@ -40,7 +40,7 @@ SIGNUP_FORM.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'index.html');
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });
 
@@ -56,6 +56,6 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'dashboard.html');
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });

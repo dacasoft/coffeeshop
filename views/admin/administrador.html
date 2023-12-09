@@ -53,8 +53,8 @@
                     <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th>APELLIDOS</th>
-                    <th>NOMBRES</th>
+                    <th>APELLIDO</th>
+                    <th>NOMBRE</th>
                     <th>CORREO</th>
                     <th>ALIAS</th>
                     <th>ACCIONES</th>
@@ -66,7 +66,7 @@
 
         <!-- Componente Modal para guardar un registro -->
         <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-hidden="true">
+            aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -77,30 +77,31 @@
                     <form id="saveForm">
                         <div class="modal-body row g-3">
                             <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                            <input class="d-none" type="number" id="idUsuario" name="idUsuario">
+                            <input class="d-none" type="number" id="idAdministrador" name="idAdministrador">
                             <div class="col-sm-12 col-md-6">
-                                <label for="nombresUsuario" class="form-label">Nombres</label>
-                                <input id="nombresUsuario" type="text" name="nombresUsuario" class="form-control"
-                                    required>
+                                <label for="nombreAdministrador" class="form-label">Nombre</label>
+                                <input id="nombreAdministrador" type="text" name="nombreAdministrador"
+                                    class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="apellidosUsuario" class="form-label">Apellidos</label>
-                                <input id="apellidosUsuario" type="text" name="apellidosUsuario" class="form-control"
-                                    required>
+                                <label for="apellidoAdministrador" class="form-label">Apellido</label>
+                                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador"
+                                    class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="correoUsuario" class="form-label">Correo</label>
-                                <input id="correoUsuario" type="email" name="correoUsuario" class="form-control"
-                                    required>
+                                <label for="correoAdministrador" class="form-label">Correo</label>
+                                <input id="correoAdministrador" type="email" name="correoAdministrador"
+                                    class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="aliasUsuario" class="form-label">Alias</label>
-                                <input id="aliasUsuario" type="text" name="aliasUsuario" class="form-control" required>
+                                <label for="aliasAdministrador" class="form-label">Alias</label>
+                                <input id="aliasAdministrador" type="text" name="aliasAdministrador"
+                                    class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="claveUsuario" class="form-label">Contraseña</label>
-                                <input id="claveUsuario" type="password" name="claveUsuario" class="form-control"
-                                    required>
+                                <label for="claveAdministrador" class="form-label">Contraseña</label>
+                                <input id="claveAdministrador" type="password" name="claveAdministrador"
+                                    class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
@@ -121,7 +122,7 @@
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
     <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <script type="text/javascript" src="../../controllers/admin/usuario.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/administrador.js"></script>
 </body>
 
 </html>

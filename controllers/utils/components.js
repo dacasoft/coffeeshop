@@ -70,10 +70,8 @@ const sweetAlert = async (type, text, timer, url = null) => {
     (timer) ? options.timer = 3000 : options.timer = null;
     // Se muestra el mensaje.
     await swal(options);
-    if (url) {
-        // Se direcciona a la página web indicada.
-        location.href = url;
-    }
+    // Se direcciona a una página web si se indica.
+    (url) ? location.href = url : undefined;
 }
 
 /*
@@ -109,7 +107,7 @@ const fillSelect = async (filename, action, select, selected = null) => {
 }
 
 /*
-*   Función para generar un gráfico de barras verticales.
+*   Función para generar un gráfico de barras verticales. Requiere la librería chart.js para funcionar.
 *   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
@@ -120,7 +118,7 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
     xAxis.forEach(() => {
         colors.push('#' + (Math.random().toString(16)).substring(2, 8));
     });
-    // Se crea una instancia para generar el gráfico con los datos recibidos. Requiere la librería chart.js para funcionar.
+    // Se crea una instancia para generar el gráfico con los datos recibidos.
     new Chart(document.getElementById(canvas), {
         type: 'bar',
         data: {
@@ -146,7 +144,7 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
 }
 
 /*
-*   Función para generar un gráfico de pastel.
+*   Función para generar un gráfico de pastel. Requiere la librería chart.js para funcionar.
 *   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
@@ -157,7 +155,7 @@ const pieGraph = (canvas, legends, values, title) => {
     values.forEach(() => {
         colors.push('#' + (Math.random().toString(16)).substring(2, 8));
     });
-    // Se crea una instancia para generar el gráfico con los datos recibidos. Requiere la librería chart.js para funcionar.
+    // Se crea una instancia para generar el gráfico con los datos recibidos.
     new Chart(document.getElementById(canvas), {
         type: 'pie',
         data: {

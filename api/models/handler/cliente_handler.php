@@ -7,6 +7,20 @@ require_once('../../helpers/database.php');
 class ClienteHandler
 {
     /*
+    *   Declaración de atributos para el manejo de datos.
+    */
+    protected $id = null;
+    protected $nombres = null;
+    protected $apellidos = null;
+    protected $correo = null;
+    protected $telefono = null;
+    protected $dui = null;
+    protected $nacimiento = null;
+    protected $direccion = null;
+    protected $clave = null;
+    protected $estado = null;
+
+    /*
     *   Métodos para gestionar la cuenta del cliente.
     */
     public function checkUser($correo)
@@ -78,15 +92,16 @@ class ClienteHandler
     }
 
     /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
+    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
     */
     public function searchRows($value)
     {
+        $value = '%' . $value . '%';
         $sql = 'SELECT id_cliente, nombres_cliente, apellidos_cliente, correo_cliente, dui_cliente, telefono_cliente, nacimiento_cliente, direccion_cliente
                 FROM cliente
                 WHERE apellidos_cliente LIKE ? OR nombres_cliente LIKE ? OR correo_cliente LIKE ?
                 ORDER BY apellidos_cliente';
-        $params = array("%$value%", "%$value%", "%$value%");
+        $params = array($value, $value, $value);
         return Database::getRows($sql, $params);
     }
 

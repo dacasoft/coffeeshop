@@ -12,6 +12,6 @@ Pasos para poner en funcionamiento el proyecto en Microsoft Windows:
 3. Modificar las credenciales para la conexión con la base de datos, ubicadas en api/helpers/config.php
 4. Ingresar al sitio web que se desea visualizar.
     Inicio del sitio privado (al ingresar por primera vez se pedirá crear un usuario):
-        localhost/coffeeshop/views/dashboard/
+        localhost/coffeeshop/views/admin/
     Inicio del sitio público:
         localhost/coffeeshop/views/public/

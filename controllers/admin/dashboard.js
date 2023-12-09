@@ -47,7 +47,7 @@ const graficoBarrasCategorias = async () => {
         barGraph('chart1', categorias, cantidades, 'Cantidad de productos', 'Cantidad de productos por categoría');
     } else {
         document.getElementById('chart1').remove();
-        console.log(DATA.exception);
+        console.log(DATA.error);
     }
 }
 
@@ -74,6 +74,6 @@ const graficoPastelCategorias = async () => {
         pieGraph('chart2', categorias, porcentajes, 'Porcentaje de productos por categoría');
     } else {
         document.getElementById('chart2').remove();
-        console.log(DATA.exception);
+        console.log(DATA.error);
     }
 }

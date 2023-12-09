@@ -1,9 +1,9 @@
 // Constantes para establecer los elementos del formulario de editar perfil.
 const PROFILE_FORM = document.getElementById('profileForm'),
-    NOMBRES_USUARIO = document.getElementById('nombresUsuario'),
-    APELLIDOS_USUARIO = document.getElementById('apellidosUsuario'),
-    CORREO_USUARIO = document.getElementById('correoUsuario'),
-    ALIAS_USUARIO = document.getElementById('aliasUsuario');
+    NOMBRE_ADMINISTRADOR = document.getElementById('nombreAdministrador'),
+    APELLIDO_ADMINISTRADOR = document.getElementById('apellidoAdministrador'),
+    CORREO_ADMINISTRADOR = document.getElementById('correoAdministrador'),
+    ALIAS_ADMINISTRADOR = document.getElementById('aliasAdministrador');
 // Constante para establecer la modal de cambiar contraseña.
 const PASSWORD_MODAL = new bootstrap.Modal('#passwordModal');
 // Constante para establecer el formulario de cambiar contraseña.
@@ -20,12 +20,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se inicializan los campos del formulario con los datos del usuario que ha iniciado sesión.
-        NOMBRES_USUARIO.value = DATA.dataset.nombres_usuario;
-        APELLIDOS_USUARIO.value = DATA.dataset.apellidos_usuario;
-        CORREO_USUARIO.value = DATA.dataset.correo_usuario;
-        ALIAS_USUARIO.value = DATA.dataset.alias_usuario;
+        const ROW = DATA.dataset;
+        NOMBRE_ADMINISTRADOR.value = ROW.nombre_administrador;
+        APELLIDO_ADMINISTRADOR.value = ROW.apellido_administrador;
+        CORREO_ADMINISTRADOR.value = ROW.correo_administrador;
+        ALIAS_ADMINISTRADOR.value = ROW.alias_administrador;
     } else {
-        sweetAlert(2, DATA.exception, null);
+        sweetAlert(2, DATA.error, null);
     }
 });
 
@@ -41,7 +42,7 @@ PROFILE_FORM.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, true);
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });
 
@@ -60,7 +61,7 @@ PASSWORD_FORM.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });
 

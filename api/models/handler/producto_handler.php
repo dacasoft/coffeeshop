@@ -6,7 +6,9 @@ require_once('../../helpers/database.php');
 */
 class ProductoHandler
 {
-    // Declaración de atributos.
+    /*
+    *   Declaración de atributos para el manejo de datos.
+    */
     protected $id = null;
     protected $nombre = null;
     protected $descripcion = null;
@@ -15,20 +17,22 @@ class ProductoHandler
     protected $imagen = null;
     protected $categoria = null;
     protected $estado = null;
+
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
 
     /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
+    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
     */
-    public function searchRows($value)
+    public function searchRows()
     {
+        $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto, nombre_categoria, estado_producto
                 FROM producto
                 INNER JOIN categoria USING(id_categoria)
                 WHERE nombre_producto LIKE ? OR descripcion_producto LIKE ?
                 ORDER BY nombre_producto';
-        $params = array("%$value%", "%$value%");
+        $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
 
@@ -52,6 +56,15 @@ class ProductoHandler
     public function readOne()
     {
         $sql = 'SELECT id_producto, nombre_producto, descripcion_producto, precio_producto, existencias_producto, imagen_producto, id_categoria, estado_producto
+                FROM producto
+                WHERE id_producto = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
+    public function readFilename()
+    {
+        $sql = 'SELECT imagen_producto
                 FROM producto
                 WHERE id_producto = ?';
         $params = array($this->id);

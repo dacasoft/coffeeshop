@@ -4,33 +4,43 @@
 */
 class Validator
 {
-    // Propiedades para manejar algunas validaciones.
-    private static $passwordError = null;
-    private static $fileError = null;
-    private static $fileName = null;
-
     /*
-    *   Método para obtener el error al validar una contraseña.
+    *   Atributos para manejar algunas validaciones.
     */
+    private static $filename = null;
+    private static $search_value = null;
+    private static $password_error = null;
+    private static $file_error = null;
+    private static $search_error = null;
+
+    // Método para obtener el error al validar una contraseña.
     public static function getPasswordError()
     {
-        return self::$passwordError;
+        return self::$password_error;
     }
 
-    /*
-    *   Método para obtener el nombre del archivo validado previamente.
-    */
-    public static function getFileName()
+    // Método para obtener el nombre del archivo validado.
+    public static function getFilename()
     {
-        return self::$fileName;
+        return self::$filename;
     }
 
-    /*
-    *   Método para obtener el error al validar un archivo.
-    */
+    // Método para obtener el error al validar un archivo.
     public static function getFileError()
     {
-        return self::$fileError;
+        return self::$file_error;
+    }
+
+    // Método para obtener el valor de búsqueda.
+    public static function getSearchValue()
+    {
+        return self::$search_value;
+    }
+
+    // Método para obtener el error al validar una búsqueda.
+    public static function getSearchError()
+    {
+        return self::$search_error;
     }
 
     /*
@@ -70,23 +80,23 @@ class Validator
     public static function validateImageFile($file, $max_width, $max_heigth)
     {
         if (is_uploaded_file($file['tmp_name'])) {
-            // Se obtienen las dimensiones y el tipo de la imagen.
-            list($width, $height, $type) = getimagesize($file['tmp_name']);
+            // Se obtienen los datos de la imagen.
+            $image = getimagesize($file['tmp_name']);
             // Se comprueba si el archivo tiene un tamaño mayor a 2MB.
             if ($file['size'] > 2097152) {
-                self::$fileError = 'El tamaño de la imagen debe ser menor a 2MB';
+                self::$file_error = 'El tamaño de la imagen debe ser menor a 2MB';
                 return false;
-            } elseif ($width > $max_width || $height > $max_heigth) {
-                self::$fileError = 'La dimensión de la imagen es incorrecta';
+            } elseif ($image[0] > $max_width || $image[1] > $max_heigth) {
+                self::$file_error = 'La dimensión de la imagen es incorrecta';
                 return false;
-            } elseif ($type == 2 || $type == 3) {
+            } elseif ($image['mime'] == 'image/jpeg' || $image['mime'] == 'image/png') {
                 // Se obtiene la extensión del archivo (.jpg o .png) y se convierte a minúsculas.
                 $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 // Se establece un nombre único para el archivo.
-                self::$fileName = uniqid() . '.' . $extension;
+                self::$filename = uniqid() . '.' . $extension;
                 return true;
             } else {
-                self::$fileError = 'El tipo de imagen debe ser jpg o png';
+                self::$file_error = 'El tipo de imagen debe ser jpg o png';
                 return false;
             }
         } else {
@@ -124,13 +134,13 @@ class Validator
 
     /*
     *   Método para validar una cadena de texto (letras, digitos, espacios en blanco y signos de puntuación).
-    *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
+    *   Parámetros: $value (dato a validar).
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
     */
-    public static function validateString($value, $minimum, $maximum)
+    public static function validateString($value)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
-        if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\,\;\.]{' . $minimum . ',' . $maximum . '}$/', $value)) {
+        if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\,\;\.]+$/', $value)) {
             return true;
         } else {
             return false;
@@ -139,13 +149,13 @@ class Validator
 
     /*
     *   Método para validar un dato alfabético (letras y espacios en blanco).
-    *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
+    *   Parámetros: $value (dato a validar).
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
     */
-    public static function validateAlphabetic($value, $minimum, $maximum)
+    public static function validateAlphabetic($value)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
-        if (preg_match('/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{' . $minimum . ',' . $maximum . '}$/', $value)) {
+        if (preg_match('/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]+$/', $value)) {
             return true;
         } else {
             return false;
@@ -154,13 +164,13 @@ class Validator
 
     /*
     *   Método para validar un dato alfanumérico (letras, dígitos y espacios en blanco).
-    *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
+    *   Parámetros: $value (dato a validar).
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
     */
-    public static function validateAlphanumeric($value, $minimum, $maximum)
+    public static function validateAlphanumeric($value)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
-        if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s]{' . $minimum . ',' . $maximum . '}$/', $value)) {
+        if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s]+$/', $value)) {
             return true;
         } else {
             return false;
@@ -191,12 +201,12 @@ class Validator
     {
         // Se verifica la longitud mínima.
         if (strlen($value) < 8) {
-            self::$passwordError = 'La contraseña es menor a 8 caracteres';
+            self::$password_error = 'La contraseña es menor a 8 caracteres';
             return false;
         } elseif (strlen($value) <= 72) {
             return true;
         } else {
-            self::$passwordError = 'La contraseña es mayor a 72 caracteres';
+            self::$password_error = 'La contraseña es mayor a 72 caracteres';
             return false;
         }
     }
@@ -248,6 +258,28 @@ class Validator
     }
 
     /*
+    *   Método para validar datos de búsqueda.
+    *   Parámetros: $value (dato a validar).
+    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+    */
+    public static function validateSearch($value)
+    {
+        if (trim($value) == '') {
+            self::$search_error = 'Ingrese un valor para buscar';
+            return false;
+        } elseif(str_word_count($value) > 3) {
+            self::$search_error = 'La búsqueda contiene más de 3 palabras';
+            return false;
+        } elseif (self::validateString($value)) {
+            self::$search_value = $value;
+            return true;
+        } else {
+            self::$search_error = 'La búsqueda contiene caracteres prohibidos';
+            return false;
+        }
+    }
+
+    /*
     *   Método para validar un archivo al momento de subirlo al servidor.
     *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
@@ -256,7 +288,7 @@ class Validator
     {
         if (!$file) {
             return false;
-        } elseif (move_uploaded_file($file['tmp_name'], $path . self::$fileName)) {
+        } elseif (move_uploaded_file($file['tmp_name'], $path . self::$filename)) {
             return true;
         } else {
             return false;
@@ -264,7 +296,7 @@ class Validator
     }
 
     /*
-    *   Método para reemplazar un archivo en el servidor.
+    *   Método para validar el reemplazo de un archivo en el servidor.
     *   Parámetros: $file (archivo), $path (ruta del archivo) y $old_filename (nombre del archivo anterior).
     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
     */

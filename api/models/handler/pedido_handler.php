@@ -7,7 +7,18 @@ require_once('../../helpers/database.php');
 class PedidoHandler
 {
     /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
+    *   Declaración de atributos para el manejo de datos.
+    */
+    protected $id_pedido = null;
+    protected $id_detalle = null;
+    protected $cliente = null;
+    protected $producto = null;
+    protected $cantidad = null;
+    protected $precio = null;
+    protected $estado = null;
+
+    /*
+    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
     */
     // Método para verificar si existe un pedido en proceso para seguir comprando, de lo contrario se crea uno.
     public function startOrder()

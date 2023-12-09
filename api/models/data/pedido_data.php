@@ -8,14 +8,9 @@ require_once('../../models/handler/pedido_handler.php');
 */
 class PedidoData extends PedidoHandler
 {
-    // Declaración de atributos (propiedades).
-    protected $id_pedido = null;
-    protected $id_detalle = null;
-    protected $cliente = null;
-    protected $producto = null;
-    protected $cantidad = null;
-    protected $precio = null;
-    protected $estado = null;
+    // Declaración de atributo para el manejo de errores en los datos.
+    private $data_error = null;
+
     /*
     *   ESTADOS PARA UN PEDIDO
     *   Pendiente (valor por defecto). Pedido en proceso y se puede modificar el detalle.
@@ -25,7 +20,7 @@ class PedidoData extends PedidoHandler
     */
 
     /*
-    *   Métodos para validar y asignar valores de los atributos.
+    *   Métodos para validar y establecer los datos.
     */
     public function setIdPedido($value)
     {
@@ -95,5 +90,11 @@ class PedidoData extends PedidoHandler
         } else {
             return false;
         }
+    }
+
+    // Método para obtener el error de los datos.
+    public function getDataError()
+    {
+        return $this->data_error;
     }
 }

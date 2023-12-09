@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Administrar productos';
+    MAIN_TITLE.textContent = 'Gestionar productos';
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
@@ -57,7 +57,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });
 
@@ -102,7 +102,7 @@ const fillTable = async (form = null) => {
         // Se muestra un mensaje de acuerdo con el resultado.
         ROWS_FOUND.textContent = DATA.message;
     } else {
-        sweetAlert(4, DATA.exception, true);
+        sweetAlert(4, DATA.error, true);
     }
 }
 
@@ -150,7 +150,7 @@ const openUpdate = async (id) => {
         ESTADO_PRODUCTO.checked = ROW.estado_producto;
         fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 }
 
@@ -176,7 +176,7 @@ const openDelete = async (id) => {
             // Se carga nuevamente la tabla para visualizar los cambios.
             fillTable();
         } else {
-            sweetAlert(2, DATA.exception, false);
+            sweetAlert(2, DATA.error, false);
         }
     }
 }
