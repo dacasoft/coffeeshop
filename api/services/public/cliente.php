@@ -9,18 +9,18 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $cliente = new ClienteData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0, 'recaptcha' => 0, 'message' => null, 'error' => null, 'exception' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
-    if (isset($_SESSION['id_cliente'])) {
+    if (isset($_SESSION['idCliente'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getUser':
-                if (isset($_SESSION['correo_cliente'])) {
+                if (isset($_SESSION['correoCliente'])) {
                     $result['status'] = 1;
-                    $result['username'] = $_SESSION['correo_cliente'];
+                    $result['username'] = $_SESSION['correoCliente'];
                 } else {
-                    $result['exception'] = 'Correo de usuario indefinido';
+                    $result['error'] = 'Correo de usuario indefinido';
                 }
                 break;
             case 'logOut':
@@ -28,77 +28,76 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Sesión eliminada correctamente';
                 } else {
-                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
+                    $result['error'] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
             default:
-                $result['exception'] = 'Acción no disponible dentro de la sesión';
+                $result['error'] = 'Acción no disponible dentro de la sesión';
         }
     } else {
         // Se compara la acción a realizar cuando el cliente no ha iniciado sesión.
         switch ($_GET['action']) {
             case 'signUp':
                 $_POST = Validator::validateForm($_POST);
+                // Se establece la clave secreta para el reCAPTCHA de acuerdo con la cuenta de Google.
                 $secretKey = '6LdBzLQUAAAAAL6oP4xpgMao-SmEkmRCpoLBLri-';
+                // Se establece la dirección IP del servidor.
                 $ip = $_SERVER['REMOTE_ADDR'];
-
-                $data = array('secret' => $secretKey, 'response' => $_POST['g-recaptcha-response'], 'remoteip' => $ip);
-
+                // Se establecen los datos del raCAPTCHA.
+                $data = array('secret' => $secretKey, 'response' => $_POST['gRecaptchaResponse'], 'remoteip' => $ip);
+                // Se establecen las opciones del reCAPTCHA.
                 $options = array(
-                    'http' => array('header'  => "Content-type: application/x-www-form-urlencoded\r\n", 'method' => 'POST', 'content' => http_build_query($data)),
+                    'http' => array('header' => 'Content-type: application/x-www-form-urlencoded\r\n', 'method' => 'POST', 'content' => http_build_query($data)),
                     'ssl' => array('verify_peer' => false, 'verify_peer_name' => false)
                 );
 
                 $url = 'https://www.google.com/recaptcha/api/siteverify';
-                $context  = stream_context_create($options);
+                $context = stream_context_create($options);
                 $response = file_get_contents($url, false, $context);
                 $captcha = json_decode($response, true);
 
                 if (!$captcha['success']) {
                     $result['recaptcha'] = 1;
-                    $result['exception'] = 'No eres humano';
-                } elseif (!$cliente->setNombres($_POST['nombres'])) {
-                    $result['exception'] = 'Nombres incorrectos';
-                } elseif (!$cliente->setApellidos($_POST['apellidos'])) {
-                    $result['exception'] = 'Apellidos incorrectos';
-                } elseif (!$cliente->setCorreo($_POST['correo'])) {
-                    $result['exception'] = 'Correo incorrecto';
-                } elseif (!$cliente->setDireccion($_POST['direccion'])) {
-                    $result['exception'] = 'Dirección incorrecta';
-                } elseif (!$cliente->setDUI($_POST['dui'])) {
-                    $result['exception'] = 'DUI incorrecto';
-                } elseif (!$cliente->setNacimiento($_POST['nacimiento'])) {
-                    $result['exception'] = 'Fecha de nacimiento incorrecta';
-                } elseif (!$cliente->setTelefono($_POST['telefono'])) {
-                    $result['exception'] = 'Teléfono incorrecto';
-                } elseif ($_POST['clave'] != $_POST['confirmar_clave']) {
-                    $result['exception'] = 'Contraseñas diferentes';
-                } elseif (!$cliente->setClave($_POST['clave'])) {
-                    $result['exception'] = Validator::getPasswordError();
+                    $result['error'] = 'No eres humano';
+                } elseif(!isset($_POST['condicion'])) {
+                    $result['error'] = 'Debe marcar la aceptación de términos y condiciones';
+                } elseif (
+                    !$cliente->setNombre($_POST['nombreCliente']) or
+                    !$cliente->setApellido($_POST['apellidoCliente']) or
+                    !$cliente->setCorreo($_POST['correoCliente']) or
+                    !$cliente->setDireccion($_POST['direccionCliente']) or
+                    !$cliente->setDUI($_POST['duiCliente']) or
+                    !$cliente->setNacimiento($_POST['nacimientoCliente']) or
+                    !$cliente->setTelefono($_POST['telefonoCliente']) or
+                    !$cliente->setClave($_POST['claveCliente'])
+                ) {
+                    $result['error'] = $cliente->getDataError();
+                } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Contraseñas diferentes';
                 } elseif ($cliente->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Cuenta registrada correctamente';
                 } else {
-                    $result['exception'] = Database::getException();
+                    $result['error'] = 'Ocurrió un problema al registrar la cuenta';
                 }
                 break;
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
-                if (!$cliente->checkUser($_POST['usuario'])) {
-                    $result['exception'] = 'Correo incorrecto';
-                } elseif (!$cliente->checkPassword($_POST['clave'])) {
-                    $result['exception'] = 'Contraseña incorrecta';
+                if (!$cliente->checkUser($_POST['correo'], $_POST['clave'])) {
+                    $result['error'] = 'Datos incorrectos';
                 } elseif ($cliente->checkStatus()) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                 } else {
-                    $result['exception'] = 'La cuenta ha sido desactivada';
+                    $result['error'] = 'La cuenta ha sido desactivada';
                 }
                 break;
             default:
-                $result['exception'] = 'Acción no disponible fuera de la sesión';
+                $result['error'] = 'Acción no disponible fuera de la sesión';
         }
     }
+    // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
+    $result['exception'] = Database::getException();
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('Content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.

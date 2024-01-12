@@ -8,16 +8,8 @@ require_once('../../models/handler/pedido_handler.php');
 */
 class PedidoData extends PedidoHandler
 {
-    // Declaración de atributo para el manejo de errores en los datos.
+    // Atributo genérico para manejo de errores.
     private $data_error = null;
-
-    /*
-    *   ESTADOS PARA UN PEDIDO
-    *   Pendiente (valor por defecto). Pedido en proceso y se puede modificar el detalle.
-    *   Finalizado. Pedido terminado por el cliente y ya no es posible modificar el detalle.
-    *   Entregado. Pedido enviado al cliente.
-    *   Anulado. Pedido cancelado por el cliente después de finalizarlo.
-    */
 
     /*
     *   Métodos para validar y establecer los datos.
@@ -28,6 +20,7 @@ class PedidoData extends PedidoHandler
             $this->id_pedido = $value;
             return true;
         } else {
+            $this->data_error = 'El identificador del pedido es incorrecto';
             return false;
         }
     }
@@ -38,6 +31,7 @@ class PedidoData extends PedidoHandler
             $this->id_detalle = $value;
             return true;
         } else {
+            $this->data_error = 'El identificador del detalle pedido es incorrecto';
             return false;
         }
     }
@@ -48,6 +42,7 @@ class PedidoData extends PedidoHandler
             $this->cliente = $value;
             return true;
         } else {
+            $this->data_error = 'El identificador del cliente es incorrecto';
             return false;
         }
     }
@@ -58,6 +53,7 @@ class PedidoData extends PedidoHandler
             $this->producto = $value;
             return true;
         } else {
+            $this->data_error = 'El identificador del producto es incorrecto';
             return false;
         }
     }
@@ -68,6 +64,7 @@ class PedidoData extends PedidoHandler
             $this->cantidad = $value;
             return true;
         } else {
+            $this->data_error = 'La cantidad del producto debe ser mayor o igual a 1';
             return false;
         }
     }

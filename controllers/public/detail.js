@@ -1,18 +1,18 @@
 // Constantes para completar la ruta de la API.
-const PRODUCTO_API = 'business/public/producto.php';
-const PEDIDO_API = 'business/public/pedido.php';
+const PRODUCTO_API = 'services/public/producto.php';
+const PEDIDO_API = 'services/public/pedido.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 // Constante para establecer el formulario de agregar un producto al carrito de compras.
-const SHOPPING_FORM = document.getElementById('shopping-form');
-// Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
-M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+const SHOPPING_FORM = document.getElementById('shoppingForm');
 
-// Método manejador de eventos para cuando el documento ha cargado.
+// Método del eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
     // Constante tipo objeto con los datos del producto seleccionado.
     const FORM = new FormData();
-    FORM.append('id_producto', PARAMS.get('id'));
+    FORM.append('idProducto', PARAMS.get('id'));
     // Petición para solicitar los datos del producto seleccionado.
     const DATA = await fetchData(PRODUCTO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -22,16 +22,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('nombre').textContent = DATA.dataset.nombre_producto;
         document.getElementById('descripcion').textContent = DATA.dataset.descripcion_producto;
         document.getElementById('precio').textContent = DATA.dataset.precio_producto;
-        document.getElementById('id_producto').value = DATA.dataset.id_producto;
+        document.getElementById('existencias').textContent = DATA.dataset.existencias_producto;
+        document.getElementById('idProducto').value = DATA.dataset.id_producto;
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.
-        document.getElementById('title').textContent = DATA.exception;
+        document.getElementById('mainTitle').textContent = DATA.error;
         // Se limpia el contenido cuando no hay datos para mostrar.
         document.getElementById('detalle').innerHTML = '';
     }
 });
 
-// Método manejador de eventos para cuando se envía el formulario de agregar un producto al carrito.
+// Método del evento para cuando se envía el formulario de agregar un producto al carrito.
 SHOPPING_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -43,8 +44,8 @@ SHOPPING_FORM.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, false, 'cart.html');
     } else if (DATA.session) {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     } else {
-        sweetAlert(3, DATA.exception, true, 'login.html');
+        sweetAlert(3, DATA.error, true, 'login.html');
     }
 });

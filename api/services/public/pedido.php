@@ -9,59 +9,53 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $pedido = new PedidoData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'error' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
-    if (isset($_SESSION['id_cliente'])) {
+    if (isset($_SESSION['idCliente'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
             case 'createDetail':
                 $_POST = Validator::validateForm($_POST);
                 if (!$pedido->startOrder()) {
-                    $result['exception'] = Database::getException();
-                } elseif (!$pedido->setProducto($_POST['id_producto'])) {
-                    $result['exception'] = 'Producto incorrecto';
-                } elseif (!$pedido->setCantidad($_POST['cantidad'])) {
-                    $result['exception'] = 'Cantidad incorrecta';
+                    $result['error'] = 'Ocurrió un problema al iniciar el pedido';
+                } elseif (!$pedido->setProducto($_POST['idProducto']) or !$pedido->setCantidad($_POST['cantidad'])) {
+                    $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->createDetail()) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto agregado correctamente';
                 } else {
-                    $result['exception'] = Database::getException();
+                    $result['error'] = 'Ocurrió un problema al agregar el producto';
                 }
                 break;
             case 'readOrderDetail':
                 if (!$pedido->startOrder()) {
-                    $result['exception'] = 'Debe agregar un producto al carrito';
+                    $result['error'] = 'Debe agregar un producto al carrito';
                 } elseif ($result['dataset'] = $pedido->readOrderDetail()) {
                     $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No tiene productos en el carrito';
+                    $result['error'] = 'No tiene productos en el carrito';
                 }
                 break;
             case 'updateDetail':
                 $_POST = Validator::validateForm($_POST);
-                if (!$pedido->setIdDetalle($_POST['id_detalle'])) {
-                    $result['exception'] = 'Detalle incorrecto';
-                } elseif (!$pedido->setCantidad($_POST['cantidad'])) {
-                    $result['exception'] = 'Cantidad incorrecta';
+                if (!$pedido->setIdDetalle($_POST['idDetalle']) or !$pedido->setCantidad($_POST['cantidad'])) {
+                    $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->updateDetail()) {
                     $result['status'] = 1;
                     $result['message'] = 'Cantidad modificada correctamente';
                 } else {
-                    $result['exception'] = 'Ocurrió un problema al modificar la cantidad';
+                    $result['error'] = 'Ocurrió un problema al modificar la cantidad';
                 }
                 break;
             case 'deleteDetail':
-                if (!$pedido->setIdDetalle($_POST['id_detalle'])) {
-                    $result['exception'] = 'Detalle incorrecto';
+                if (!$pedido->setIdDetalle($_POST['idDetalle'])) {
+                    $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->deleteDetail()) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto removido correctamente';
                 } else {
-                    $result['exception'] = 'Ocurrió un problema al remover el producto';
+                    $result['error'] = 'Ocurrió un problema al remover el producto';
                 }
                 break;
             case 'finishOrder':
@@ -69,22 +63,24 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Pedido finalizado correctamente';
                 } else {
-                    $result['exception'] = 'Ocurrió un problema al finalizar el pedido';
+                    $result['error'] = 'Ocurrió un problema al finalizar el pedido';
                 }
                 break;
             default:
-                $result['exception'] = 'Acción no disponible dentro de la sesión';
+                $result['error'] = 'Acción no disponible dentro de la sesión';
         }
     } else {
         // Se compara la acción a realizar cuando un cliente no ha iniciado sesión.
         switch ($_GET['action']) {
             case 'createDetail':
-                $result['exception'] = 'Debe iniciar sesión para agregar el producto al carrito';
+                $result['error'] = 'Debe iniciar sesión para agregar el producto al carrito';
                 break;
             default:
-                $result['exception'] = 'Acción no disponible fuera de la sesión';
+                $result['error'] = 'Acción no disponible fuera de la sesión';
         }
     }
+    // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
+    $result['exception'] = Database::getException();
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('Content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.

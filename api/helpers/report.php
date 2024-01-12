@@ -20,8 +20,6 @@ class Report extends FPDF
     */
     public function startReport($title)
     {
-        // Se establece la zona horaria a utilizar durante la ejecución del reporte.
-        ini_set('date.timezone', 'America/El_Salvador');
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en los reportes.
         session_start();
         // Se verifica si un administrador ha iniciado sesión para generar el documento, de lo contrario se direcciona a la página web principal.

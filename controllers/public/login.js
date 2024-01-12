@@ -1,9 +1,13 @@
 // Constante para establecer el formulario de iniciar sesión.
-const SESSION_FORM = document.getElementById('session-form');
-// Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
-M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+const SESSION_FORM = document.getElementById('sessionForm');
 
-// Método manejador de eventos para cuando se envía el formulario de iniciar sesión.
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', async () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
+});
+
+// Método del evento para cuando se envía el formulario de iniciar sesión.
 SESSION_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -15,6 +19,6 @@ SESSION_FORM.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'index.html');
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
     }
 });

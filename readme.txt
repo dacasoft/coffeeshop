@@ -1,10 +1,14 @@
 Demo de tienda en línea desarrollada con las siguientes tecnologías y herramientas:
 BACKEND
 - XAMPP v8.2.0 (PHP 8.2.0 y Apache 2.4.54)
-- MariaDB v10.4.27
+- MariaDB v10.4.27 (https://mariadb.org/)
+- FPDF v1.85 (http://www.fpdf.org/)
 FRONTEND
 - Vanilla JS
-- Bootstrap v5.3.0
+- Bootstrap v5.3.0 (https://getbootstrap.com/)
+- Bootstrap Icons v1.10.5 (https://icons.getbootstrap.com/)
+- SweetAlert v2.0 (https://sweetalert.js.org/)
+- Chart.js v4.3.0 (https://www.chartjs.org/)
 
 Pasos para poner en funcionamiento el proyecto en Microsoft Windows:
 1. Colocar la carpeta del proyecto en el directorio C:/xampp/htdocs/

@@ -1,20 +1,20 @@
+// Constante para establecer el formulario de registrar cliente.
+const SIGNUP_FORM = document.getElementById('signupForm');
 // Constante para establecer la mascara del campo teléfono.
 const MASKED_PHONE = vanillaTextMask.maskInput({
-    inputElement: document.getElementById('telefono'),
+    inputElement: document.getElementById('telefonoCliente'),
     mask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 });
 // Constante para establecer la mascara del campo DUI.
 const MASKED_DUI = vanillaTextMask.maskInput({
-    inputElement: document.getElementById('dui'),
+    inputElement: document.getElementById('duiCliente'),
     mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]
 });
-// Constante para establecer el formulario de registrar cliente.
-const SIGNUP_FORM = document.getElementById('signup-form');
-// Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
-M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 
-// Método manejador de eventos para cuando el documento ha cargado.
+// Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
     // LLamada a la función para asignar el token del reCAPTCHA al formulario.
     reCAPTCHA();
     // Constante tipo objeto para obtener la fecha y hora actual.
@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Se declara e inicializa una variable para establecer el formato de la fecha.
     let date = `${year}-${month}-${day}`;
     // Se asigna la fecha como valor máximo en el campo del formulario.
-    document.getElementById('nacimiento').max = date;
+    document.getElementById('nacimientoCliente').max = date;
 });
 
-// Método manejador de eventos para cuando se envía el formulario de registrar cliente.
+// Método del evento para cuando se envía el formulario de registrar cliente.
 SIGNUP_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -43,9 +43,9 @@ SIGNUP_FORM.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, true, 'login.html');
     } else if (DATA.recaptcha) {
-        sweetAlert(2, DATA.exception, false, 'index.html');
+        sweetAlert(2, DATA.error, false, 'index.html');
     } else {
-        sweetAlert(2, DATA.exception, false);
+        sweetAlert(2, DATA.error, false);
         // Se genera un nuevo token cuando ocurre un problema.
         reCAPTCHA();
     }
@@ -64,7 +64,7 @@ function reCAPTCHA() {
         // Se obtiene un token para la página web mediante la llave pública.
         grecaptcha.execute(PUBLIC_KEY, { action: 'homepage' }).then((token) => {
             // Se asigna el valor del token al campo oculto del formulario
-            document.getElementById('g-recaptcha-response').value = token;
+            document.getElementById('gRecaptchaResponse').value = token;
         });
     });
 }

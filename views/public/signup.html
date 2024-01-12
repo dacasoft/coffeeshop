@@ -3,99 +3,81 @@
 <html lang="es">
 
 <head>
-    <!-- Codificación de caracteres para el documento -->
-    <meta charset="utf-8">
     <!-- Título del documento -->
-    <title>CoffeeShop - Registrarse</title>
-    <!-- Optimización de la página web para dispositivos móviles -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Llamada de archivo como icono -->
+    <!-- Llamada de archivos -->
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Importación de archivos CSS -->
-    <link rel="stylesheet" href="../../resources/css/icons.css">
-    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
-    <link rel="stylesheet" href="../../resources/css/public.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
 <body>
-    <!-- Encabezado del documento -->
-    <header></header>
     <!-- Contenido principal del documento -->
-    <main class="container">
+    <main>
         <!-- Título del contenido principal -->
-        <h4 class="center-align indigo-text">Regístrate como cliente</h4>
+        <h4 id="mainTitle">Crear cuenta</h4>
         <!-- Formulario para crear cuenta -->
-        <form class="row" method="post" id="signup-form">
+        <form class="row g-3" id="signupForm">
             <!-- Campo oculto para asignar el token del reCAPTCHA -->
-            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">account_box</i>
-                <input type="text" id="nombres" name="nombres" class="validate" required>
-                <label for="nombres">Nombres</label>
+            <input type="hidden" id="gRecaptchaResponse" name="gRecaptchaResponse">
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
+                <label for="nombreCliente" class="form-label">Nombre</label>
+                <input type="text" id="nombreCliente" name="nombreCliente" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">account_box</i>
-                <input type="text" id="apellidos" name="apellidos" class="validate" required>
-                <label for="apellidos">Apellidos</label>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <label for="apellidoCliente" class="form-label">Apellido</label>
+                <input type="text" id="apellidoCliente" name="apellidoCliente" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">email</i>
-                <input type="email" id="correo" name="correo" maxlength="100" class="validate" required>
-                <label for="correo">Correo electrónico</label>
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
+                <label for="correoCliente" class="form-label">Correo electrónico</label>
+                <input type="email" id="correoCliente" name="correoCliente" maxlength="100" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">how_to_reg</i>
-                <input type="text" id="dui" name="dui" placeholder="00000000-0" class="validate" required>
-                <label for="dui">DUI</label>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <label for="duiCliente" class="form-label">DUI</label>
+                <input type="text" id="duiCliente" name="duiCliente" placeholder="00000000-0" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">phone</i>
-                <input type="text" id="telefono" name="telefono" placeholder="0000-0000" class="validate" required>
-                <label for="telefono">Teléfono</label>
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
+                <label for="telefonoCliente" class="form-label">Teléfono</label>
+                <input type="text" id="telefonoCliente" name="telefonoCliente" placeholder="0000-0000" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">cake</i>
-                <input type="date" id="nacimiento" name="nacimiento" class="validate" required>
-                <label for="nacimiento">Nacimiento</label>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <label for="nacimientoCliente" class="form-label">Nacimiento</label>
+                <input type="date" id="nacimientoCliente" name="nacimientoCliente" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">security</i>
-                <input type="password" id="clave" name="clave" class="validate" required>
-                <label for="clave">Contraseña</label>
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
+                <label for="claveCliente" class="form-label">Contraseña</label>
+                <input type="password" id="claveCliente" name="claveCliente" class="form-control" required>
             </div>
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">security</i>
-                <input type="password" id="confirmar_clave" name="confirmar_clave" class="validate" required>
-                <label for="confirmar_clave">Confirmar contraseña</label>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
+                <input type="password" id="confirmarClave" name="confirmarClave" class="form-control" required>
             </div>
-            <div class="input-field col s12">
-                <i class="material-icons prefix">place</i>
-                <input type="text" id="direccion" name="direccion" maxlength="200" class="validate" required>
-                <label for="direccion">Dirección</label>
+            <div class="col-sm-12 col-lg-8 offset-lg-2">
+                <label for="direccionCliente" class="form-label">Dirección</label>
+                <input type="text" id="direccionCliente" name="direccionCliente" maxlength="250" class="form-control" required>
             </div>
-            <label class="col s12 center-align">
-                <input type="checkbox" id="condicion" name="condicion" required>
-                <span>Acepto <a href="#" class="modal-trigger">términos y condiciones</a></span>
-            </label>
-            <div class="col s12 center-align">
-                <button type="reset" class="btn waves-effect grey tooltipped" data-tooltip="Reiniciar">
-                    <i class="material-icons">autorenew</i>
-                </button>
-                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Registrar">
-                    <i class="material-icons">send</i>
-                </button>
+            <div class="form-check d-flex justify-content-center">
+                <input type="checkbox" class="form-check-input" id="condicion" name="condicion" required>
+                <label class="form-check-label" for="condicion">Acepto términos y condiciones</label>
+            </div>
+            <div class="text-center">
+                <button type="reset" class="btn btn-secondary"><i class="bi bi-x-circle-fill"></i> Restablecer</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-person-fill"></i> Registrar</button>
             </div>
         </form>
-        <!-- Importación de la librería para que funcione el reCAPTCHA. Para más información https://developers.google.com/recaptcha/docs/v3 -->
+        <!-- Importación de la librería del reCAPTCHA. Para más información https://developers.google.com/recaptcha/docs/v3 -->
         <script src="https://www.google.com/recaptcha/api.js?render=6LdBzLQUAAAAAJvH-aCUUJgliLOjLcmrHN06RFXT"></script>
     </main>
-    <footer class="page-footer"></footer>
     <!-- Importación de archivos JavaScript -->
-    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../../resources/js/vanillaTextMask.js"></script>
-    <script type="text/javascript" src="../../controllers/components.js"></script>
-    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
     <script type="text/javascript" src="../../controllers/public/signup.js"></script>
 </body>
 

@@ -1,6 +1,4 @@
 <?php
-// Encabezado para permitir solicitudes de cualquier origen.
-header('Access-Control-Allow-Origin: *');
 // Se incluyen las credenciales para conectar con la base de datos.
 require_once('config.php');
 

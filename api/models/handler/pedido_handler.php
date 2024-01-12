@@ -18,6 +18,14 @@ class PedidoHandler
     protected $estado = null;
 
     /*
+    *   ESTADOS DEL PEDIDO
+    *   Pendiente (valor por defecto). Pedido en proceso y se puede modificar el detalle.
+    *   Finalizado. Pedido terminado por el cliente y ya no es posible modificar el detalle.
+    *   Entregado. Pedido enviado al cliente.
+    *   Anulado. Pedido cancelado por el cliente después de finalizarlo.
+    */
+
+    /*
     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
     */
     // Método para verificar si existe un pedido en proceso para seguir comprando, de lo contrario se crea uno.
@@ -26,16 +34,16 @@ class PedidoHandler
         $sql = "SELECT id_pedido
                 FROM pedido
                 WHERE estado_pedido = 'Pendiente' AND id_cliente = ?";
-        $params = array($_SESSION['id_cliente']);
+        $params = array($_SESSION['idCliente']);
         if ($data = Database::getRow($sql, $params)) {
-            $_SESSION['id_pedido'] = $data['id_pedido'];
+            $_SESSION['idPedido'] = $data['id_pedido'];
             return true;
         } else {
             $sql = 'INSERT INTO pedido(direccion_pedido, id_cliente)
                     VALUES((SELECT direccion_cliente FROM cliente WHERE id_cliente = ?), ?)';
-            $params = array($_SESSION['id_cliente'], $_SESSION['id_cliente']);
+            $params = array($_SESSION['idCliente'], $_SESSION['idCliente']);
             // Se obtiene el ultimo valor insertado en la llave primaria de la tabla pedidos.
-            if ($_SESSION['id_pedido'] = Database::getLastRow($sql, $params)) {
+            if ($_SESSION['idPedido'] = Database::getLastRow($sql, $params)) {
                 return true;
             } else {
                 return false;
@@ -49,7 +57,7 @@ class PedidoHandler
         // Se realiza una subconsulta para obtener el precio del producto.
         $sql = 'INSERT INTO detalle_pedido(id_producto, precio_producto, cantidad_producto, id_pedido)
                 VALUES(?, (SELECT precio_producto FROM producto WHERE id_producto = ?), ?, ?)';
-        $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['id_pedido']);
+        $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 
@@ -61,21 +69,18 @@ class PedidoHandler
                 INNER JOIN detalle_pedido USING(id_pedido)
                 INNER JOIN producto USING(id_producto)
                 WHERE id_pedido = ?';
-        $params = array($_SESSION['id_pedido']);
+        $params = array($_SESSION['idPedido']);
         return Database::getRows($sql, $params);
     }
 
     // Método para finalizar un pedido por parte del cliente.
     public function finishOrder()
     {
-        // Se establece la zona horaria local para obtener la fecha del servidor.
-        date_default_timezone_set('America/El_Salvador');
-        $date = date('Y-m-d');
         $this->estado = 'Finalizado';
         $sql = 'UPDATE pedido
-                SET estado_pedido = ?, fecha_pedido = ?
+                SET estado_pedido = ?
                 WHERE id_pedido = ?';
-        $params = array($this->estado, $date, $_SESSION['id_pedido']);
+        $params = array($this->estado, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 
@@ -85,7 +90,7 @@ class PedidoHandler
         $sql = 'UPDATE detalle_pedido
                 SET cantidad_producto = ?
                 WHERE id_detalle = ? AND id_pedido = ?';
-        $params = array($this->cantidad, $this->id_detalle, $_SESSION['id_pedido']);
+        $params = array($this->cantidad, $this->id_detalle, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 
@@ -94,7 +99,7 @@ class PedidoHandler
     {
         $sql = 'DELETE FROM detalle_pedido
                 WHERE id_detalle = ? AND id_pedido = ?';
-        $params = array($this->id_detalle, $_SESSION['id_pedido']);
+        $params = array($this->id_detalle, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 }

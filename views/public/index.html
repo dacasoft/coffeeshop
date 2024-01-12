@@ -3,73 +3,82 @@
 <html lang="es">
 
 <head>
-    <!-- Codificación de caracteres para el documento -->
-    <meta charset="utf-8">
     <!-- Título del documento -->
-    <title>CoffeeShop - Tu tienda de café</title>
-    <!-- Optimización de la página web para dispositivos móviles -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Llamada de archivo como icono -->
+    <!-- Llamada de archivos -->
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Importación de archivos CSS -->
-    <link rel="stylesheet" href="../../resources/css/icons.css">
-    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
-    <link rel="stylesheet" href="../../resources/css/public.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
 <body>
-    <!-- Encabezado del documento -->
-    <header></header>
     <!-- Contenido principal del documento -->
     <main>
-        <!-- Componente Slider con indicadores -->
-        <div class="slider" id="slider">
-            <ul class="slides">
-                <li>
-                    <img src="../../resources/img/slider/img01.jpg" alt="Primera foto">
-                    <div class="caption center-align">
-                        <h2>¿Sabías que...?</h2>
-                        <h4>El café reduce el riesgo de padecer Alzheimer.</h4>
+        <!-- Componente Carousel con reproducción automática e indicadores -->
+        <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../../resources/img/carousel/img1.jpg" class="d-block w-100" alt="Slide 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>¿Sabías que...?</h5>
+                        <p>El café reduce el riesgo de padecer Alzheimer.</p>
                     </div>
-                </li>
-                <li>
-                    <img src="../../resources/img/slider/img02.jpg" alt="Segunda foto">
-                    <div class="caption left-align">
-                        <h2>¿Preocupado por tu peso?</h2>
-                        <h4>El café contribuye a reducir esos kilos de más.</h4>
+                </div>
+                <div class="carousel-item">
+                    <img src="../../resources/img/carousel/img2.jpg" class="d-block w-100" alt="Slide 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>¿Preocupado por tu peso?</h5>
+                        <p>El café contribuye a reducir esos kilos de más.</p>
                     </div>
-                </li>
-                <li>
-                    <img src="../../resources/img/slider/img03.jpg" alt="Tercera foto">
-                    <div class="caption right-align">
-                        <h2>¿Sabías que...?</h2>
-                        <h4>El café reduce el riesgo de cáncer.</h4>
+                </div>
+                <div class="carousel-item">
+                    <img src="../../resources/img/carousel/img3.jpg" class="d-block w-100" alt="Slide 3">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>¿Sabías que...?</h5>
+                        <p>El café ayuda a disminuir el riesgo de cáncer.</p>
                     </div>
-                </li>
-                <li>
-                    <img src="../../resources/img/slider/img04.jpg" alt="Cuarta foto">
-                    <div class="caption center-align">
-                        <h2>¿Quieres lucir radiante?</h2>
-                        <h4>El café ayuda a tener una piel más perfecta.</h4>
+                </div>
+                <div class="carousel-item">
+                    <img src="../../resources/img/carousel/img4.jpg" class="d-block w-100" alt="Slide 4">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>¿Quieres lucir radiante?</h5>
+                        <p>El café favorece a tener una piel más perfecta.</p>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <!-- Contenedor para mostrar el catálogo de tipos de producto -->
-        <div class="container">
-            <!-- Título del contenido principal -->
-            <h4 class="center indigo-text" id="title">CATÁLOGO DE PRODUCTOS</h4>
-            <!-- Fila para mostrar las categorías disponibles -->
-            <div class="row" id="categorias"></div>
-        </div>
+        <!-- Título del contenido principal -->
+        <h4 id="mainTitle">PRODUCTOS POR CATEGORÍA</h4>
+        <!-- Contenedor para mostrar las categorías disponibles -->
+        <div class="row" id="categorias"></div>
     </main>
-    <!-- Pie del documento -->
-    <footer class="page-footer"></footer>
     <!-- Importación de archivos JavaScript -->
-    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <script type="text/javascript" src="../../controllers/components.js"></script>
-    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
     <script type="text/javascript" src="../../controllers/public/index.js"></script>
 </body>
 

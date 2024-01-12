@@ -7,11 +7,11 @@
 const USER_API = 'services/admin/administrador.php';
 // Constante para establecer el elemento del contenido principal.
 const MAIN = document.querySelector('main');
-MAIN.style.paddingTop = '100px';
+MAIN.style.paddingTop = '75px';
 MAIN.style.paddingBottom = '100px';
 MAIN.classList.add('container');
 // Se establece el título de la página web.
-document.querySelector('title').textContent = 'CoffeeShop - Sitio privado';
+document.querySelector('title').textContent = 'CoffeeShop - Dashboard';
 // Constante para establecer el elemento del título principal.
 const MAIN_TITLE = document.getElementById('mainTitle');
 MAIN_TITLE.classList.add('text-center', 'py-3');
@@ -65,10 +65,10 @@ const loadTemplate = async () => {
             MAIN.insertAdjacentHTML('afterend', `
                 <footer>
                     <nav class="navbar fixed-bottom bg-body-tertiary">
-                        <div class="container pt-2">
+                        <div class="container">
                             <div>
                                 <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
-                                <p><i class="bi bi-c-circle-fill"></i> 2018-2024 Todos los derechos reservados</p>
+                                <p><i class="bi bi-c-square-fill"></i> 2018-2024 Todos los derechos reservados</p>
                             </div>
                             <div>
                                 <p><a class="nav-link" href="../public/" target="_blank"><i class="bi bi-cart-fill"></i> Sitio público</a></p>
@@ -79,7 +79,7 @@ const loadTemplate = async () => {
                 </footer>
             `);
         } else {
-            sweetAlert(3, DATA.exception, false, 'index.html');
+            sweetAlert(3, DATA.error, false, 'index.html');
         }
     } else {
         // Se comprueba si la página web es la principal, de lo contrario se direcciona a iniciar sesión.
@@ -98,7 +98,7 @@ const loadTemplate = async () => {
             MAIN.insertAdjacentHTML('afterend', `
                 <footer>
                     <nav class="navbar fixed-bottom bg-body-tertiary">
-                        <div class="container pt-2">
+                        <div class="container">
                             <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
                             <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
                         </div>

@@ -23,7 +23,7 @@ class AdministradorHandler
     {
         $sql = 'SELECT id_administrador, alias_administrador, clave_administrador
                 FROM administrador
-                WHERE alias_administrador = ?';
+                WHERE  alias_administrador = ?';
         $params = array($username);
         $data = Database::getRow($sql, $params);
         if (password_verify($password, $data['clave_administrador'])) {

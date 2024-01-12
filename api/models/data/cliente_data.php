@@ -8,7 +8,7 @@ require_once('../../models/handler/cliente_handler.php');
 */
 class ClienteData extends ClienteHandler
 {
-    // Declaración de atributo para el manejo de errores en los datos.
+    // Atributo genérico para manejo de errores.
     private $data_error = null;
 
     /*
@@ -20,36 +20,49 @@ class ClienteData extends ClienteHandler
             $this->id = $value;
             return true;
         } else {
+            $this->data_error = 'El identificador del cliente es incorrecto';
             return false;
         }
     }
 
-    public function setNombres($value)
+    public function setNombre($value, $min = 2, $max = 50)
     {
-        if (Validator::validateAlphabetic($value)) {
-            $this->nombres = $value;
+        if (!Validator::validateAlphabetic($value)) {
+            $this->data_error = 'El nombre debe ser un valor alfabético';
+            return false;
+        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+            $this->nombre = $value;
             return true;
         } else {
+            $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
     }
 
-    public function setApellidos($value)
+    public function setApellido($value, $min = 2, $max = 50)
     {
-        if (Validator::validateAlphabetic($value)) {
-            $this->apellidos = $value;
+        if (!Validator::validateAlphabetic($value)) {
+            $this->data_error = 'El apellido debe ser un valor alfabético';
+            return false;
+        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+            $this->apellido = $value;
             return true;
         } else {
+            $this->data_error = 'El apellido debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
     }
 
-    public function setCorreo($value)
+    public function setCorreo($value, $min = 8, $max = 100)
     {
-        if (Validator::validateEmail($value)) {
+        if (!Validator::validateEmail($value)) {
+            $this->data_error = 'El correo no es válido';
+            return false;
+        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
             $this->correo = $value;
             return true;
         } else {
+            $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
     }
@@ -60,6 +73,7 @@ class ClienteData extends ClienteHandler
             $this->telefono = $value;
             return true;
         } else {
+            $this->data_error = 'El teléfono debe tener el formato ####-#### y comenzar con 2, 6 o 7';
             return false;
         }
     }
@@ -70,6 +84,7 @@ class ClienteData extends ClienteHandler
             $this->dui = $value;
             return true;
         } else {
+            $this->data_error = 'El DUI debe tener el formato ########-#';
             return false;
         }
     }
@@ -80,6 +95,7 @@ class ClienteData extends ClienteHandler
             $this->nacimiento = $value;
             return true;
         } else {
+            $this->data_error = 'La fecha de nacimiento es incorrecta';
             return false;
         }
     }
@@ -90,6 +106,7 @@ class ClienteData extends ClienteHandler
             $this->direccion = $value;
             return true;
         } else {
+            $this->data_error = 'La dirección contiene caracteres prohibidos';
             return false;
         }
     }
@@ -100,6 +117,7 @@ class ClienteData extends ClienteHandler
             $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
+            $this->data_error = Validator::getPasswordError();
             return false;
         }
     }
@@ -110,6 +128,7 @@ class ClienteData extends ClienteHandler
             $this->estado = $value;
             return true;
         } else {
+            $this->data_error = 'Estado incorrecto';
             return false;
         }
     }

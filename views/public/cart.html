@@ -3,29 +3,25 @@
 <html lang="es">
 
 <head>
-    <!-- Codificación de caracteres para el documento -->
-    <meta charset="utf-8">
     <!-- Título del documento -->
-    <title>CoffeeShop - Carrito de compras</title>
-    <!-- Optimización de la página web para dispositivos móviles -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Llamada de archivo como icono -->
+    <!-- Llamada de archivos -->
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Importación de archivos CSS -->
-    <link rel="stylesheet" href="../../resources/css/icons.css">
-    <link rel="stylesheet" href="../../resources/css/materialize.min.css">
-    <link rel="stylesheet" href="../../resources/css/public.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
 <body>
-    <!-- Encabezado del documento -->
-    <header></header>
     <!-- Contenido principal del documento -->
-    <main class="container">
+    <main>
         <!-- Título del contenido principal -->
-        <h4 class="center-align indigo-text">Carrito de compras</h4>
+        <h4 id="mainTitle">Carrito de compras</h4>
         <!-- Tabla para mostrar el detalle de los productos agregados al carrito de compras -->
-        <table class="striped">
+        <table class="table table-striped">
             <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
             <thead>
                 <tr>
@@ -37,59 +33,55 @@
                 </tr>
             </thead>
             <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tbody-rows"></tbody>
+            <tbody id="tableBody"></tbody>
         </table>
-        <!-- Fila para mostrar el monto total a pagar -->
-        <div class="row right-align">
-            <p>TOTAL A PAGAR (US$) <b id="pago"></b></p>
-        </div>
-        <!-- Fila para mostrar un botón que finaliza el pedido -->
-        <div class="row right-align">
-            <a onclick="finishOrder()" class="btn waves-effect blue tooltipped" data-tooltip="Finalizar pedido">
-                <i class="material-icons">payment</i>
+        <!-- Párrafo para mostrar el monto total a pagar -->
+        <p class="text-end">TOTAL A PAGAR (US$) <b id="pago"></b></p>
+        <!-- Párrafo para mostrar un botón que finaliza el pedido -->
+        <p class="text-end">
+            <button type="button" onclick="finishOrder()" class="btn btn-primary">
+                <i class="bi bi-credit-card-fill"></i> Finalizar pedido
+            </button>
+        </p>
+        <!-- Párrafo para mostrar un enlace con la dirección de la página web principal para seguir comprando -->
+        <p class="text-end">
+            <a href="index.html" class="btn btn-success">
+                <i class="bi bi-cart-fill"></i> Seguir comprando
             </a>
-        </div>
-        <!-- Fila para mostrar un enlace con la dirección de la página web principal para seguir comprando -->
-        <div class="row right-align">
-            <a href="index.html" class="btn waves-effect indigo tooltipped" data-tooltip="Seguir comprando">
-                <i class="material-icons">store</i>
-            </a>
-        </div>
+        </p>
         <!-- Componente Modal para mostrar una caja de diálogo -->
-        <div id="item-modal" class="modal">
-            <div class="modal-content">
-                <!-- Título para la caja de diálogo -->
-                <h4 class="center-align">Cambiar cantidad</h4>
-                <!-- Formulario para cambiar la cantidad de producto -->
-                <form class="row" method="post" id="item-form">
-                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                    <input type="number" id="id_detalle" name="id_detalle" class="hide">
-                    <div class="input-field col s12 m4 offset-m4">
-                        <i class="material-icons prefix">list</i>
-                        <input type="number" id="cantidad" name="cantidad" min="1" class="validate" required>
-                        <label for="cantidad">Cantidad</label>
+        <div class="modal fade" id="itemModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Contenido del componente Modal -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle">Cambiar cantidad</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="col s12 center-align">
-                        <!-- Enlace para cerrar el componente Modal -->
-                        <a class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar">
-                            <i class="material-icons">cancel</i>
-                        </a>
-                        <!-- Botón para enviar el formulario -->
-                        <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Guardar">
-                            <i class="material-icons">save</i>
-                        </button>
-                    </div>
-                </form>
+                    <!-- Formulario para actualizar cantidad -->
+                    <form id="itemForm">
+                        <div class="modal-body row">
+                            <input type="hidden" id="idDetalle" name="idDetalle">
+                            <div class="col-sm-12">
+                                <label for="cantidad" class="form-label">Cantidad</label>
+                                <input id="cantidad" type="number" name="cantidad" min="1" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
-    <!-- Pie del documento -->
-    <footer class="page-footer"></footer>
     <!-- Importación de archivos JavaScript -->
-    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <script type="text/javascript" src="../../controllers/components.js"></script>
-    <script type="text/javascript" src="../../controllers/public/account.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
     <script type="text/javascript" src="../../controllers/public/cart.js"></script>
 </body>
 
