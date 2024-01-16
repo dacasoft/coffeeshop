@@ -69,26 +69,6 @@ class PedidoData extends PedidoHandler
         }
     }
 
-    public function setPrecio($value)
-    {
-        if (Validator::validateMoney($value)) {
-            $this->precio = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function setEstado($value)
-    {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->estado = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     // Método para obtener el error de los datos.
     public function getDataError()
     {

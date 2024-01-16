@@ -81,7 +81,7 @@ class CategoriaData extends CategoriaHandler
             $this->filename = $data['imagen_categoria'];
             return true;
         } else {
-            $this->data_error = 'Categoría inexistente o no cuenta con una imagen';
+            $this->data_error = 'Categoría inexistente';
             return false;
         }
     }

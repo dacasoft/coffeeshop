@@ -7,11 +7,12 @@ const ITEM_MODAL = new bootstrap.Modal('#itemModal');
 // Constante para establecer el formulario de cambiar producto.
 const ITEM_FORM = document.getElementById('itemForm');
 
-
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Carrito de compras';
     // Llamada a la función para mostrar los productos del carrito de compras.
     readOrderDetail();
 });
@@ -92,7 +93,7 @@ function openUpdate(id, quantity) {
     ITEM_MODAL.show();
     // Se inicializan los campos del formulario con los datos del registro seleccionado.
     document.getElementById('idDetalle').value = id;
-    document.getElementById('cantidad').value = quantity;
+    document.getElementById('cantidadProducto').value = quantity;
 }
 
 /*

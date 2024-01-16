@@ -7,6 +7,8 @@ const CATEGORIAS = document.getElementById('categorias');
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Productos por categoría';
     // Petición para obtener las categorías disponibles.
     const DATA = await fetchData(CATEGORIA_API, 'readAll');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -16,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se establece la página web de destino con los parámetros.
-            url = `products.html?id=${row.id_categoria}&nombre=${row.nombre_categoria}`;
+            let url = `products.html?id=${row.id_categoria}&nombre=${row.nombre_categoria}`;
             // Se crean y concatenan las tarjetas con los datos de cada categoría.
             CATEGORIAS.innerHTML += `
                 <div class="col-sm-12 col-md-6 col-lg-3">

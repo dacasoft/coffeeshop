@@ -19,26 +19,26 @@
     <!-- Contenido principal del documento -->
     <main>
         <!-- Título del contenido principal -->
-        <h4 id="mainTitle">Detalles del producto</h4>
+        <h4 id="mainTitle"></h4>
         <!-- Componente Horizontal Card para mostrar el detalle de un producto -->
         <div class="card mb-3" id="detalle">
             <div class="row">
                 <div class="col-md-4">
-                    <!-- Se muestra una imagen por defecto mientras se carga la imagen del producto -->
-                    <img src="../../resources/img/unknown.png" class="img-fluid rounded-start" id="imagen">
+                    <!-- Se muestra la imagen del producto -->
+                    <img id="imagenProducto" class="img-fluid rounded-start">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title" id="nombre"></h5>
-                        <p class="card-text" id="descripcion"></p>
-                        <p class="card-text">Precio unitario (US$) <b id="precio"></b></p>
-                        <p class="card-text">Existencias <b id="existencias"></b></p>
+                        <h5 class="card-title" id="nombreProducto"></h5>
+                        <p class="card-text" id="descripcionProducto"></p>
+                        <p class="card-text">Precio unitario (US$) <b id="precioProducto"></b></p>
+                        <p class="card-text">Existencias <b id="existenciasProducto"></b></p>
                         <!-- Formulario para agregar el producto al carrito de compras -->
                         <form class="row" id="shoppingForm">
                             <!-- Campo oculto para asignar el id del producto -->
                             <input type="hidden" id="idProducto" name="idProducto">
                             <div class="col-6">
-                                <input type="number" id="cantidad" name="cantidad" min="1" class="form-control" placeholder="Ingrese cantidad"
+                                <input type="number" id="cantidadProducto" name="cantidadProducto" min="1" class="form-control" placeholder="Ingrese cantidad"
                                     required>
                             </div>
                             <div class="col-6 align-self-end">

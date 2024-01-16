@@ -14,7 +14,6 @@ class PedidoHandler
     protected $cliente = null;
     protected $producto = null;
     protected $cantidad = null;
-    protected $precio = null;
     protected $estado = null;
 
     /*

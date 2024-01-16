@@ -258,7 +258,7 @@ class Validator
     }
 
     /*
-    *   Método para validar datos de búsqueda.
+    *   Método para validar un valor de búsqueda.
     *   Parámetros: $value (dato a validar).
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
     */
@@ -296,7 +296,7 @@ class Validator
     }
 
     /*
-    *   Método para validar el reemplazo de un archivo en el servidor.
+    *   Método para validar el cambio de un archivo en el servidor.
     *   Parámetros: $file (archivo), $path (ruta del archivo) y $old_filename (nombre del archivo anterior).
     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
     */

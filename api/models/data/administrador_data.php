@@ -67,7 +67,7 @@ class AdministradorData extends AdministradorHandler
         }
     }
 
-    public function setAlias($value, $min = 8, $max = 25)
+    public function setAlias($value, $min = 6, $max = 25)
     {
         if (!Validator::validateAlphanumeric($value)) {
             $this->data_error = 'El alias debe ser un valor alfanumérico';

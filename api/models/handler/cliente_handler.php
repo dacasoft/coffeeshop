@@ -81,13 +81,13 @@ class ClienteHandler
     /*
     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
     */
-    public function searchRows($value)
+    public function searchRows()
     {
-        $value = '%' . $value . '%';
+        $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, correo_cliente, dui_cliente, telefono_cliente, nacimiento_cliente, direccion_cliente
                 FROM cliente
-                WHERE apellidos_cliente LIKE ? OR nombres_cliente LIKE ? OR correo_cliente LIKE ?
-                ORDER BY apellidos_cliente';
+                WHERE apellido_cliente LIKE ? OR nombre_cliente LIKE ? OR correo_cliente LIKE ?
+                ORDER BY apellido_cliente';
         $params = array($value, $value, $value);
         return Database::getRows($sql, $params);
     }
@@ -104,7 +104,7 @@ class ClienteHandler
     {
         $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, correo_cliente, dui_cliente, estado_cliente
                 FROM cliente
-                ORDER BY apellidos_cliente';
+                ORDER BY apellido_cliente';
         return Database::getRows($sql);
     }
 
@@ -132,5 +132,14 @@ class ClienteHandler
                 WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    public function checkDuplicate($value)
+    {
+        $sql = 'SELECT id_cliente
+                FROM cliente
+                WHERE dui_cliente = ? OR correo_cliente = ?';
+        $params = array($value, $value);
+        return Database::getRow($sql, $params);
     }
 }

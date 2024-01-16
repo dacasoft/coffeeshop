@@ -122,7 +122,7 @@ class ProductoData extends ProductoHandler
             $this->filename = $data['imagen_producto'];
             return true;
         } else {
-            $this->data_error = 'Producto inexistente o no cuenta con una imagen';
+            $this->data_error = 'Producto inexistente';
             return false;
         }
     }

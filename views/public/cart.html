@@ -19,7 +19,7 @@
     <!-- Contenido principal del documento -->
     <main>
         <!-- Título del contenido principal -->
-        <h4 id="mainTitle">Carrito de compras</h4>
+        <h4 id="mainTitle"></h4>
         <!-- Tabla para mostrar el detalle de los productos agregados al carrito de compras -->
         <table class="table table-striped">
             <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
@@ -39,11 +39,11 @@
         <p class="text-end">TOTAL A PAGAR (US$) <b id="pago"></b></p>
         <!-- Párrafo para mostrar un botón que finaliza el pedido -->
         <p class="text-end">
-            <button type="button" onclick="finishOrder()" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" onclick="finishOrder()">
                 <i class="bi bi-credit-card-fill"></i> Finalizar pedido
             </button>
         </p>
-        <!-- Párrafo para mostrar un enlace con la dirección de la página web principal para seguir comprando -->
+        <!-- Párrafo para mostrar un enlace a la página web principal -->
         <p class="text-end">
             <a href="index.html" class="btn btn-success">
                 <i class="bi bi-cart-fill"></i> Seguir comprando
@@ -64,8 +64,8 @@
                         <div class="modal-body row">
                             <input type="hidden" id="idDetalle" name="idDetalle">
                             <div class="col-sm-12">
-                                <label for="cantidad" class="form-label">Cantidad</label>
-                                <input id="cantidad" type="number" name="cantidad" min="1" class="form-control"
+                                <label for="cantidadProducto" class="form-label">Cantidad</label>
+                                <input id="cantidadProducto" type="number" name="cantidadProducto" min="1" class="form-control"
                                     required>
                             </div>
                         </div>

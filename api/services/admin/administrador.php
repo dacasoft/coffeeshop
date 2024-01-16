@@ -109,7 +109,7 @@ if (isset($_GET['action'])) {
                 if ($result['dataset'] = $administrador->readProfile()) {
                     $result['status'] = 1;
                 } else {
-                    $result['error'] = 'Administrador inexistente';
+                    $result['error'] = 'Ocurrió un problema al leer el perfil';
                 }
                 break;
             case 'editProfile':

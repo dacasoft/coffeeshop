@@ -19,7 +19,10 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$pedido->startOrder()) {
                     $result['error'] = 'Ocurrió un problema al iniciar el pedido';
-                } elseif (!$pedido->setProducto($_POST['idProducto']) or !$pedido->setCantidad($_POST['cantidad'])) {
+                } elseif (
+                    !$pedido->setProducto($_POST['idProducto']) or
+                    !$pedido->setCantidad($_POST['cantidadProducto'])
+                ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->createDetail()) {
                     $result['status'] = 1;
@@ -39,7 +42,10 @@ if (isset($_GET['action'])) {
                 break;
             case 'updateDetail':
                 $_POST = Validator::validateForm($_POST);
-                if (!$pedido->setIdDetalle($_POST['idDetalle']) or !$pedido->setCantidad($_POST['cantidad'])) {
+                if (
+                    !$pedido->setIdDetalle($_POST['idDetalle']) or
+                    !$pedido->setCantidad($_POST['cantidadProducto'])
+                ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->updateDetail()) {
                     $result['status'] = 1;

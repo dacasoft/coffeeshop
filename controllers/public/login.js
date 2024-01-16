@@ -5,6 +5,8 @@ const SESSION_FORM = document.getElementById('sessionForm');
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Iniciar sesión';
 });
 
 // Método del evento para cuando se envía el formulario de iniciar sesión.

@@ -10,6 +10,8 @@ const SHOPPING_FORM = document.getElementById('shoppingForm');
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Detalles del producto';
     // Constante tipo objeto con los datos del producto seleccionado.
     const FORM = new FormData();
     FORM.append('idProducto', PARAMS.get('id'));
@@ -18,11 +20,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se colocan los datos en la página web de acuerdo con el producto seleccionado previamente.
-        document.getElementById('imagen').src = SERVER_URL.concat('images/productos/', DATA.dataset.imagen_producto);
-        document.getElementById('nombre').textContent = DATA.dataset.nombre_producto;
-        document.getElementById('descripcion').textContent = DATA.dataset.descripcion_producto;
-        document.getElementById('precio').textContent = DATA.dataset.precio_producto;
-        document.getElementById('existencias').textContent = DATA.dataset.existencias_producto;
+        document.getElementById('imagenProducto').src = SERVER_URL.concat('images/productos/', DATA.dataset.imagen_producto);
+        document.getElementById('nombreProducto').textContent = DATA.dataset.nombre_producto;
+        document.getElementById('descripcionProducto').textContent = DATA.dataset.descripcion_producto;
+        document.getElementById('precioProducto').textContent = DATA.dataset.precio_producto;
+        document.getElementById('existenciasProducto').textContent = DATA.dataset.existencias_producto;
         document.getElementById('idProducto').value = DATA.dataset.id_producto;
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.
