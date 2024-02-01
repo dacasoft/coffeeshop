@@ -18,30 +18,41 @@ class PedidoHandler
 
     /*
     *   ESTADOS DEL PEDIDO
-    *   Pendiente (valor por defecto). Pedido en proceso y se puede modificar el detalle.
+    *   Pendiente (valor por defecto en la base de datos). Pedido en proceso y se puede modificar el detalle.
     *   Finalizado. Pedido terminado por el cliente y ya no es posible modificar el detalle.
     *   Entregado. Pedido enviado al cliente.
-    *   Anulado. Pedido cancelado por el cliente después de finalizarlo.
+    *   Anulado. Pedido cancelado por el cliente después de ser finalizado.
     */
 
     /*
     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
     */
-    // Método para verificar si existe un pedido en proceso para seguir comprando, de lo contrario se crea uno.
-    public function startOrder()
+    // Método para verificar si existe un pedido en proceso con el fin de iniciar o continuar una compra.
+    public function getOrder()
     {
-        $sql = "SELECT id_pedido
+        $this->estado = 'Pendiente';
+        $sql = 'SELECT id_pedido
                 FROM pedido
-                WHERE estado_pedido = 'Pendiente' AND id_cliente = ?";
-        $params = array($_SESSION['idCliente']);
+                WHERE estado_pedido = ? AND id_cliente = ?';
+        $params = array($this->estado, $_SESSION['idCliente']);
         if ($data = Database::getRow($sql, $params)) {
             $_SESSION['idPedido'] = $data['id_pedido'];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Método para iniciar un pedido en proceso.
+    public function startOrder()
+    {
+        if ($this->getOrder()) {
             return true;
         } else {
             $sql = 'INSERT INTO pedido(direccion_pedido, id_cliente)
                     VALUES((SELECT direccion_cliente FROM cliente WHERE id_cliente = ?), ?)';
             $params = array($_SESSION['idCliente'], $_SESSION['idCliente']);
-            // Se obtiene el ultimo valor insertado en la llave primaria de la tabla pedidos.
+            // Se obtiene el ultimo valor insertado de la llave primaria en la tabla pedido.
             if ($_SESSION['idPedido'] = Database::getLastRow($sql, $params)) {
                 return true;
             } else {
@@ -61,11 +72,11 @@ class PedidoHandler
     }
 
     // Método para obtener los productos que se encuentran en el carrito de compras.
-    public function readOrderDetail()
+    public function readDetail()
     {
         $sql = 'SELECT id_detalle, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad_producto
-                FROM pedido
-                INNER JOIN detalle_pedido USING(id_pedido)
+                FROM detalle_pedido
+                INNER JOIN pedido USING(id_pedido)
                 INNER JOIN producto USING(id_producto)
                 WHERE id_pedido = ?';
         $params = array($_SESSION['idPedido']);

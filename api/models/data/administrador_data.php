@@ -30,7 +30,7 @@ class AdministradorData extends AdministradorHandler
         if (!Validator::validateAlphabetic($value)) {
             $this->data_error = 'El nombre debe ser un valor alfabético';
             return false;
-        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->nombre = $value;
             return true;
         } else {
@@ -44,7 +44,7 @@ class AdministradorData extends AdministradorHandler
         if (!Validator::validateAlphabetic($value)) {
             $this->data_error = 'El apellido debe ser un valor alfabético';
             return false;
-        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->apellido = $value;
             return true;
         } else {
@@ -58,7 +58,7 @@ class AdministradorData extends AdministradorHandler
         if (!Validator::validateEmail($value)) {
             $this->data_error = 'El correo no es válido';
             return false;
-        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->correo = $value;
             return true;
         } else {
@@ -72,7 +72,7 @@ class AdministradorData extends AdministradorHandler
         if (!Validator::validateAlphanumeric($value)) {
             $this->data_error = 'El alias debe ser un valor alfanumérico';
             return false;
-        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->alias = $value;
             return true;
         } else {

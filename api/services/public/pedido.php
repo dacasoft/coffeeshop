@@ -31,13 +31,13 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al agregar el producto';
                 }
                 break;
-            case 'readOrderDetail':
-                if (!$pedido->startOrder()) {
-                    $result['error'] = 'Debe agregar un producto al carrito';
-                } elseif ($result['dataset'] = $pedido->readOrderDetail()) {
+            case 'readDetail':
+                if (!$pedido->getOrder()) {
+                    $result['error'] = 'No ha agregado productos al carrito';
+                } elseif ($result['dataset'] = $pedido->readDetail()) {
                     $result['status'] = 1;
                 } else {
-                    $result['error'] = 'No tiene productos en el carrito';
+                    $result['error'] = 'No existen productos en el carrito';
                 }
                 break;
             case 'updateDetail':

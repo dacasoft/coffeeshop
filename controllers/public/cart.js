@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Se establece el título del contenido principal.
     MAIN_TITLE.textContent = 'Carrito de compras';
     // Llamada a la función para mostrar los productos del carrito de compras.
-    readOrderDetail();
+    readDetail();
 });
 
 // Método del evento para cuando se envía el formulario de cambiar cantidad de producto.
@@ -28,7 +28,7 @@ ITEM_FORM.addEventListener('submit', async (event) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se actualiza la tabla para visualizar los cambios.
-        readOrderDetail();
+        readDetail();
         // Se cierra la caja de diálogo del formulario.
         ITEM_MODAL.hide();
         // Se muestra un mensaje de éxito.
@@ -43,9 +43,9 @@ ITEM_FORM.addEventListener('submit', async (event) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-async function readOrderDetail() {
+async function readDetail() {
     // Petición para obtener los datos del pedido en proceso.
-    const DATA = await fetchData(PEDIDO_API, 'readOrderDetail');
+    const DATA = await fetchData(PEDIDO_API, 'readDetail');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se inicializa el cuerpo de la tabla.
@@ -136,7 +136,7 @@ async function openDelete(id) {
         if (DATA.status) {
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            readOrderDetail();
+            readDetail();
         } else {
             sweetAlert(2, DATA.error, false);
         }

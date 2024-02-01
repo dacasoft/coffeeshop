@@ -30,7 +30,7 @@ class ClienteData extends ClienteHandler
         if (!Validator::validateAlphabetic($value)) {
             $this->data_error = 'El nombre debe ser un valor alfabético';
             return false;
-        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->nombre = $value;
             return true;
         } else {
@@ -44,7 +44,7 @@ class ClienteData extends ClienteHandler
         if (!Validator::validateAlphabetic($value)) {
             $this->data_error = 'El apellido debe ser un valor alfabético';
             return false;
-        } elseif (strlen($value) >= $min && strlen($value) <= $max) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->apellido = $value;
             return true;
         } else {
@@ -58,7 +58,7 @@ class ClienteData extends ClienteHandler
         if (!Validator::validateEmail($value)) {
             $this->data_error = 'El correo no es válido';
             return false;
-        } elseif (strlen($value) < $min || strlen($value) > $max) {
+        } elseif (!Validator::validateLength($value, $min, $max)) {
             $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         } elseif($this->checkDuplicate($value)) {
@@ -106,13 +106,16 @@ class ClienteData extends ClienteHandler
         }
     }
 
-    public function setDireccion($value)
+    public function setDireccion($value, $min = 2, $max = 250)
     {
-        if (Validator::validateString($value)) {
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'La dirección contiene caracteres prohibidos';
+            return false;
+        } elseif(Validator::validateLength($value, $min, $max)) {
             $this->direccion = $value;
             return true;
         } else {
-            $this->data_error = 'La dirección contiene caracteres prohibidos';
+            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
     }

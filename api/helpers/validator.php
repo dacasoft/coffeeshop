@@ -178,6 +178,21 @@ class Validator
     }
 
     /*
+    *   Método para validar la longitud de una cadena de texto.
+    *   Parámetros: $value (dato a validar), $min (longitud mínima) y $max (longitud máxima).
+    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+    */
+    public static function validateLength($value, $min, $max)
+    {
+        // Se verifica la longitud de la cadena de texto.
+        if (strlen($value) >= $min && strlen($value) <= $max) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
     *   Método para validar un dato monetario.
     *   Parámetros: $value (dato a validar).
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
@@ -248,7 +263,7 @@ class Validator
     */
     public static function validateDate($value)
     {
-        // Se dividen las partes de la fecha y se guardan en un arreglo en el siguiene orden: año, mes y día.
+        // Se dividen las partes de la fecha y se guardan en un arreglo con el siguiene orden: año, mes y día.
         $date = explode('-', $value);
         if (checkdate($date[1], $date[2], $date[0])) {
             return true;
