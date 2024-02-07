@@ -1,3 +1,4 @@
+CoffeeShop v7.2.2
 Demo de tienda en línea desarrollada con las siguientes tecnologías y herramientas:
 BACKEND
 - XAMPP v8.2.0 (PHP 8.2.0 y Apache 2.4.54)

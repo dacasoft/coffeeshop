@@ -27,6 +27,7 @@ const loadTemplate = async () => {
     if (DATA.session) {
         // Se verifica si la página web no es el inicio de sesión, de lo contrario se direcciona a la página web principal.
         if (!location.pathname.endsWith('login.html')) {
+            // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
                 <header>
                     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -50,6 +51,7 @@ const loadTemplate = async () => {
             location.href = 'index.html';
         }
     } else {
+        // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
             <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -70,7 +72,7 @@ const loadTemplate = async () => {
             </header>
         `);
     }
-    // Se establece el pie del encabezado.
+    // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
         <footer>
             <nav class="navbar fixed-bottom bg-body-tertiary">
