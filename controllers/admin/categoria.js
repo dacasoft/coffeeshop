@@ -73,7 +73,6 @@ const fillTable = async (form = null) => {
     const DATA = await fetchData(CATEGORIA_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        console.log(DATA)
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.

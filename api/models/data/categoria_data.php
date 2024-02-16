@@ -44,7 +44,7 @@ class CategoriaData extends CategoriaHandler
 
     public function setImagen($file, $filename = null)
     {
-        if (Validator::validateImageFile($file, 500, 500)) {
+        if (Validator::validateImageFile($file, 1000)) {
             $this->imagen = Validator::getFilename();
             return true;
         } elseif (Validator::getFileError()) {

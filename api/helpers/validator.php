@@ -74,10 +74,10 @@ class Validator
 
     /*
     *   Método para validar un archivo de imagen.
-    *   Parámetros: $file (archivo de un formulario), $max_width (ancho máximo para la imagen) y $max_heigth (alto máximo para la imagen).
+    *   Parámetros: $file (archivo de un formulario) y $dimension (medida mínima para la imagen).
     *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
     */
-    public static function validateImageFile($file, $max_width, $max_heigth)
+    public static function validateImageFile($file, $dimension)
     {
         if (is_uploaded_file($file['tmp_name'])) {
             // Se obtienen los datos de la imagen.
@@ -86,8 +86,11 @@ class Validator
             if ($file['size'] > 2097152) {
                 self::$file_error = 'El tamaño de la imagen debe ser menor a 2MB';
                 return false;
-            } elseif ($image[0] > $max_width || $image[1] > $max_heigth) {
-                self::$file_error = 'La dimensión de la imagen es incorrecta';
+            } elseif ($image[0] < $dimension) {
+                self::$file_error = 'La dimensión de la imagen es menor a ' . $dimension . 'px';
+                return false;
+            } elseif ($image[0] != $image[1]) {
+                self::$file_error = 'La imagen no es cuadrada';
                 return false;
             } elseif ($image['mime'] == 'image/jpeg' || $image['mime'] == 'image/png') {
                 // Se obtiene la extensión del archivo (.jpg o .png) y se convierte a minúsculas.

@@ -30,7 +30,7 @@ const loadTemplate = async () => {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
                 <header>
-                    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+                    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
                         <div class="container">
                             <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="CoffeeShop"></a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@ const loadTemplate = async () => {
         // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
             <header>
-                <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+                <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
                     <div class="container">
                         <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="CoffeeShop"></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
