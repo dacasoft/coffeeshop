@@ -25,8 +25,9 @@ class AdministradorHandler
                 FROM administrador
                 WHERE  alias_administrador = ?';
         $params = array($username);
-        $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave_administrador'])) {
+        if (!($data = Database::getRow($sql, $params))) {
+            return false;
+        } elseif (password_verify($password, $data['clave_administrador'])) {
             $_SESSION['idAdministrador'] = $data['id_administrador'];
             $_SESSION['aliasAdministrador'] = $data['alias_administrador'];
             return true;

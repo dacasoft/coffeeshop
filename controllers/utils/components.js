@@ -5,7 +5,8 @@
 const SERVER_URL = 'http://localhost/coffeeshop/api/';
 
 /*
-*   Función para mostrar un mensaje de confirmación. Requiere la librería sweetalert para funcionar.
+*   Función para mostrar un mensaje de confirmación.
+*   Requiere la librería sweetalert para funcionar.
 *   Parámetros: message (mensaje de confirmación).
 *   Retorno: resultado de la promesa.
 */
@@ -32,7 +33,8 @@ const confirmAction = (message) => {
 }
 
 /*
-*   Función asíncrona para manejar los mensajes de notificación al usuario. Requiere la librería sweetalert para funcionar.
+*   Función asíncrona para manejar los mensajes de notificación al usuario.
+*   Requiere la librería sweetalert para funcionar.
 *   Parámetros: type (tipo de mensaje), text (texto a mostrar), timer (uso de temporizador) y url (valor opcional con la ubicación de destino).
 *   Retorno: ninguno.
 */
@@ -107,7 +109,8 @@ const fillSelect = async (filename, action, select, selected = null) => {
 }
 
 /*
-*   Función para generar un gráfico de barras verticales. Requiere la librería chart.js para funcionar.
+*   Función para generar un gráfico de barras verticales.
+*   Requiere la librería chart.js para funcionar.
 *   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
@@ -144,7 +147,8 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
 }
 
 /*
-*   Función para generar un gráfico de pastel. Requiere la librería chart.js para funcionar.
+*   Función para generar un gráfico de pastel.
+*   Requiere la librería chart.js para funcionar.
 *   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
