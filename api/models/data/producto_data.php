@@ -62,7 +62,7 @@ class ProductoData extends ProductoHandler
             $this->precio = $value;
             return true;
         } else {
-            $this->data_error = 'El precio debe ser un valor numérico';
+            $this->data_error = 'El precio debe ser un número positivo';
             return false;
         }
     }
@@ -73,7 +73,7 @@ class ProductoData extends ProductoHandler
             $this->existencias = $value;
             return true;
         } else {
-            $this->data_error = 'El valor de las existencias debe ser numérico entero';
+            $this->data_error = 'Las existencias debe ser un número entero positivo';
             return false;
         }
     }
@@ -129,7 +129,7 @@ class ProductoData extends ProductoHandler
     }
 
     /*
-     *  Métodos para obtener los atributos adicionales.
+     *  Métodos para obtener el valor de los atributos adicionales.
      */
     public function getDataError()
     {

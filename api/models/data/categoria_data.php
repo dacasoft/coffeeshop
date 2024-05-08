@@ -87,7 +87,7 @@ class CategoriaData extends CategoriaHandler
     }
 
     /*
-     *  Métodos para obtener los atributos adicionales.
+     *  Métodos para obtener el valor de los atributos adicionales.
      */
     public function getDataError()
     {
