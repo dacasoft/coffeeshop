@@ -29,8 +29,9 @@ class ClienteHandler
                 FROM cliente
                 WHERE correo_cliente = ?';
         $params = array($mail);
-        $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave_cliente'])) {
+        if (!($data = Database::getRow($sql, $params))) {
+            return false;
+        } elseif (password_verify($password, $data['clave_cliente'])) {
             $this->id = $data['id_cliente'];
             $this->correo = $data['correo_cliente'];
             $this->estado = $data['estado_cliente'];
@@ -72,9 +73,9 @@ class ClienteHandler
     public function changeStatus()
     {
         $sql = 'UPDATE cliente
-                SET estado_cliente = ?
+                SET estado_cliente = !estado_cliente
                 WHERE id_cliente = ?';
-        $params = array($this->estado, $this->id);
+        $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
 

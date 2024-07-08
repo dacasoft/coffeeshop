@@ -79,7 +79,7 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se establece un icono para el estado del producto.
-            (row.estado_producto) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
+            (parseInt(row.estado_producto)) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
@@ -148,7 +148,7 @@ const openUpdate = async (id) => {
         PRECIO_PRODUCTO.value = ROW.precio_producto;
         EXISTENCIAS_PRODUCTO.value = ROW.existencias_producto;
         ESTADO_PRODUCTO.checked = ROW.estado_producto;
-        fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
+        fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', parseInt(ROW.id_categoria));
     } else {
         sweetAlert(2, DATA.error, false);
     }
