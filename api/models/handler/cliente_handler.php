@@ -134,13 +134,4 @@ class ClienteHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-
-    public function checkDuplicate($value)
-    {
-        $sql = 'SELECT id_cliente
-                FROM cliente
-                WHERE dui_cliente = ? OR correo_cliente = ?';
-        $params = array($value, $value);
-        return Database::getRow($sql, $params);
-    }
 }

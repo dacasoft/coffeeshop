@@ -7,7 +7,8 @@ const TABLE_BODY = document.getElementById('tableBody'),
     ROWS_FOUND = document.getElementById('rowsFound');
 // Constantes para establecer los elementos del componente Modal.
 const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
-    MODAL_TITLE = document.getElementById('modalTitle');
+    MODAL_TITLE = document.getElementById('modalTitle'),
+    CHART_MODAL = new bootstrap.Modal('#chartModal');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
     ID_CATEGORIA = document.getElementById('idCategoria'),
@@ -45,7 +46,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
     const DATA = await fetchData(CATEGORIA_API, action, FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
         SAVE_MODAL.hide();
@@ -71,7 +72,7 @@ const fillTable = async (form = null) => {
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(CATEGORIA_API, action, form);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
@@ -88,8 +89,11 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_categoria})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
+                        <button type="button" class="btn btn-warning" onclick="openChart(${row.id_categoria})">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                        </button>
                         <button type="button" class="btn btn-warning" onclick="openReport(${row.id_categoria})">
-                            <i class="bi bi-filetype-pdf"></i>
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
                         </button>
                     </td>
                 </tr>
@@ -126,7 +130,7 @@ const openUpdate = async (id) => {
     FORM.append('idCategoria', id);
     // Petición para obtener los datos del registro solicitado.
     const DATA = await fetchData(CATEGORIA_API, 'readOne', FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
@@ -158,7 +162,7 @@ const openDelete = async (id) => {
         FORM.append('idCategoria', id);
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(CATEGORIA_API, 'deleteRow', FORM);
-        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
@@ -171,7 +175,40 @@ const openDelete = async (id) => {
 }
 
 /*
-*   Función para abrir un reporte parametrizado de productos de una categoría.
+*   Función asíncrona para mostrar un gráfico parametrizado.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openChart = async (id) => {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('idCategoria', id);
+    // Petición para obtener los datos del registro solicitado.
+    const DATA = await fetchData(CATEGORIA_API, 'readTopProductos', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
+    if (DATA.status) {
+        // Se muestra la caja de diálogo con su título.
+        CHART_MODAL.show();
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let productos = [];
+        let unidades = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            productos.push(row.nombre_producto);
+            unidades.push(row.total);
+        });
+        // Se agrega la etiqueta canvas al contenedor de la modal.
+        document.getElementById('chartContainer').innerHTML = `<canvas id="chart"></canvas>`;
+        // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
+        barGraph('chart', productos, unidades, 'Cantidad de productos', 'Top 5 de productos con más unidades vendidas');
+    } else {
+        sweetAlert(4, DATA.error, true);
+    }
+}
+
+/*
+*   Función para abrir un reporte parametrizado.
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */

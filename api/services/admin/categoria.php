@@ -92,6 +92,15 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar la categoría';
                 }
                 break;
+            case 'readTopProductos':
+                if (!$categoria->setId($_POST['idCategoria'])) {
+                    $result['error'] = $categoria->getDataError();
+                } elseif ($result['dataset'] = $categoria->readTopProductos()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'No existen productos vendidos por el momento';
+                }
+                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
